@@ -16,6 +16,14 @@ if (isset($_POST['submit'])) {
     }
     //
     else {
+        $currentDate = time();
+        echo '<br>'.$currentDate.'<br>';
+        //Expire er ager selector ache kina check  
+        $query = "Select * from passwordReset where ResetSelector = '$selector' && ResetExpire >= '$currentDate'";
+        echo $query . "<br>";
+        $db = new database();
+        $cnt = 0;
+        $res = mysqli_query($db->connect(), $query);
         
         if (mysqli_num_rows($res) > 0) {
             if ($row = mysqli_fetch_assoc($res)) {
