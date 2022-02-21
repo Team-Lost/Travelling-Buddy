@@ -4,7 +4,7 @@
             <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
         </div>
         <div class="col-11 text-center-v">
-            <p class="text-center-v">Kazi Toufique Elahi</p>
+            <p class="text-center-v"><?php echo $userPost['UserName'] ?></p>
         </div>
     </div>
     <div class="row justify-content-center my-2">

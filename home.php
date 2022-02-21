@@ -80,15 +80,15 @@ include "Model/Database.php";
     include "navbar_user.php";
     $currID = $_SESSION['UserID'];
     $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
-    $query = "SELECT * FROM POSTS" .
-        " LEFT JOIN (SELECT SUM(voteStatus) AS voteCount, postID AS votedPostID FROM VOTES GROUP BY(postID)) AS countedVote" .
-        " ON POSTS.postID = countedVote.votedPostID";
+    $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+        " FROM user" .
+        " RIGHT JOIN posts ON user.UserID = posts.posterID" .
+        " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID";
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $userPost = $row;
+        while ($userPost = mysqli_fetch_assoc($result)) {
             $voteStatus = 0;
-            $voteQuery = "SELECT * FROM `votes` WHERE postID = " . $row['postID'] . " AND voterID = $currID";
+            $voteQuery = "SELECT * FROM `votes` WHERE postID = " . $userPost['postID'] . " AND voterID = $currID";
             $upvoteIconClass = $downvoteIconClass = "";
             $res = mysqli_query($conn, $voteQuery);
             if (mysqli_num_rows($res) > 0) {

@@ -11,7 +11,7 @@
                 <a class="nav-link" href="#">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="create_post.php">Messages</a>
+                <a class="nav-link" href="#">Messages</a>
             </li>
         </ul>
     </div>
