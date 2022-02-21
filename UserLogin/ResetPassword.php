@@ -17,17 +17,14 @@ if (isset($_POST['submit'])) {
     //
     else {
         $currentDate = time();
-        echo '<br>'.$currentDate.'<br>';
+        //   echo '<br>'.$currentDate.'<br>';
         //Expire er ager selector ache kina check  
         $query = "Select * from passwordReset where ResetSelector = '$selector' && ResetExpire >= '$currentDate'";
-        echo $query . "<br>";
+        echo $query . "<br>";   
         $db = new database();
-        $cnt = 0;
         $res = mysqli_query($db->connect(), $query);
-        
         if (mysqli_num_rows($res) > 0) {
-            if ($row = mysqli_fetch_assoc($res)) {
-                $cnt++;
+            if ($row = mysqli_fetch_assoc($res)) {               
                 print_r($row);
                 $tokenBin = hex2bin($validator);
                 $tokenCheck = password_verify($tokenBin, $row["ResetToken"]);
@@ -46,11 +43,7 @@ if (isset($_POST['submit'])) {
                     //header("Location: Login.php");
                 }
             }
-        }
-        if ($cnt == 0) {
-            $passError = "You need to resubmit your reset request!";
-            echo $passError;
-        }
+        }        
         echo $query;
     }
 }
@@ -76,7 +69,23 @@ if (isset($_POST['submit'])) {
     } else {
         //check if they are valid hexadecimal format
         if (ctype_xdigit($selector) && ctype_xdigit($validator)) {
-    ?>
+            $currentDate = time();
+            $count = 0;
+            $query = "Select COUNT(ResetSelector) from passwordReset where ResetSelector = '$selector' && ResetExpire >= '$currentDate'";
+            $db = new database();
+            $res = mysqli_query($db->connect(), $query);
+            if (mysqli_num_rows($res) > 0) {
+                if ($row = mysqli_fetch_assoc($res)) {
+                    $count = $row['COUNT(ResetSelector)'];
+                }
+            }
+            if ($count == 0) {
+                echo "Link expired!You need to resubmit your request";
+                return;
+            }
+            ?>
+        
+            
             <form action="#" method="post">
                 <input type="hidden" name="selector" value="<?php echo $selector ?>">
                 <input type="hidden" name="validator" value="<?php echo $validator ?>">
