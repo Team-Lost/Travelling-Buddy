@@ -3,8 +3,6 @@ session_start();
 if (!isset($_SESSION['UserID'])) {
     header("Location:UserLogin/Login.php");
 }
-include "Model/Database.php";
-
 ?>
 
 <html>
@@ -111,7 +109,7 @@ include "Model/Database.php";
                 $userPost['voteCount'] = 0;
             }
 
-            include 'post.php';
+            include "Model/post_view.php";
         }
     }
     if (isset($_POST['ajax'])) {
@@ -157,7 +155,6 @@ include "Model/Database.php";
                 var iconUpvote = document.getElementById('upvote-' + postID);
                 var iconDownvote = document.getElementById('downvote-' + postID);
                 var vote = iconUpvote.getAttribute('vote');
-                alert(name + '-' + postID);
                 var change = 0;
                 if (name.toString() == 'upvote') {
                     if (vote == 1) {
