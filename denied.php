@@ -1,10 +1,5 @@
 <?php
-    include 'mail.php';
-   // sendMail($receipient, $subject, $message);
-  /* if(sendMail("190104101@aust.edu", "Test1", "Hello there!"))
-   {
-        echo "Send Mail Called";
-   }*/
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +10,6 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Access Denied!</h1>
 </body>
 </html>

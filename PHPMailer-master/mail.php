@@ -38,13 +38,12 @@ try {
   //  $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-    //Content
-   
+    //Content   
     $mail->Subject = $subject;
     //$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     $content = $message;
-  
+   
     $mail->MsgHTML($content); 
     $mail->send();
     echo 'Message has been sent';

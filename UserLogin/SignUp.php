@@ -1,11 +1,11 @@
 <?php
 session_start();
 include "../Model/Database.php";
-$nameError = $mailError = $genderError = $filesError = $filesError = $phnError = $pass1Error = $pass2Error = $success = "";
+$nameError = $mailError = $genderError = $filesError = $filesError = $phnError = $pass1Error = $pass2Error = $success = $userName =  $mail = $phoneNumber = $checkMail = $checkPhone ="";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+   //echo "<pre>";
+    //print_r($_POST);
+    //echo "</pre>";
 
     //-------------------server side validation======================//
     $error = false;
@@ -30,6 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $phnError = "Phone number doesnot satisfy the required length!";
         $error = true;
     }
+    //check if phone number already exists--//
+    $checkPhone = $_POST['phoneNumber'];
+    $query = "Select count(Phone) from User where Phone = '$checkPhone'";
+    $db = new database();
+    $check = 0;
+    $res = mysqli_query($db->connect(), $query);
+    if (mysqli_num_rows($res) > 0) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            $check = $row['count(Phone)'];
+            break;
+        }
+    }
+    if ($check == 1) {
+        $mailError = "Phone number already exists!";
+        $error = true;
+    }
 
     //---check mail---//
     if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) || empty($_POST['mail']) || !preg_match('/^([a-zA-Z\d\.-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,3})(\.[a-zA-Z]{2,3})?$/', $_POST['mail'])) {
@@ -37,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $error = true;
     }
     //--check if email exists---//
-    $mail = $_POST['mail'];
-    $query = "Select count(Mail) from User where Mail = '$mail'";
+    $checkMail = $_POST['mail'];
+    $query = "Select count(Mail) from User where Mail = '$checkMail'";
     $db = new database();
     $check = 0;
     $res = mysqli_query($db->connect(), $query);
@@ -52,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $mailError = "Email already exists!";
         $error = true;
     }
+    
 
     //---check radio button---//
     if (empty($_POST['gender'])) {
@@ -82,29 +99,32 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $fileSize = -1;
 
         $file = $_FILES['files'];
-        echo "<pre>";
-        echo "test";
-        print_r($_FILES['files']);
-        echo "</pre>";
+       // echo "<pre>";
+       // echo "test";
+       // print_r($_FILES['files']);
+       // echo "</pre>";
         $fileName = $_FILES['files']['name'];
         $fileTmpDestination = $_FILES['files']['tmp_name'];
         $fileSize = $_FILES['files']['size'];
         $fileError = $_FILES['files']['error'];
         $fileType = $_FILES['files']['type'];
         $fileExt = explode('.', $fileName);
-        $fileActualExt = strtolower(end($fileExt));
-        echo $fileActualExt;
+        $fileActualExt = strtolower(end($fileExt));       
         $allowed = array('jpg', 'jpeg', 'png', 'pdf');
         if (in_array($fileActualExt, $allowed)) {
             if ($fileError === 0) {
-                if ($fileSize < 2000000) {
+                if ($fileSize < 8000000) {
                     $fileActualName = md5($fileExt[0]) . "." . $fileActualExt;
-                    echo $fileActualName;
-                    // $fileDestination = 'uploads/' . $fileActualName;
-                    //move the file to temp lcoation to actual location//
-                    // move_uploaded_file($fileTmpDestination, $fileDestination);
+                    if($fileActualExt == "pdf")
+                    {
+                        $fileDestination = '../UserIdentification/Documents/' . $fileActualName;      
+                    }
+                    else
+                    {                   
+                        $fileDestination = '../UserIdentification/Images/' . $fileActualName;
+                    }                
                 } else {
-                    $filesError = "File size exceeds 2 mb!";
+                    $filesError = "File size exceeds 8 mb!";
                     $error = true;
                 }
             } else {
@@ -118,13 +138,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     if (!$error) {
         $db = new database();
+        $userName = trim($_POST['userName']);
+        $mail = trim($_POST['mail']);
+        $phoneNumber = trim($_POST['phoneNumber']);
         $password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
-        $query = "INSERT INTO USER(UserName, Mail, Phone, UserPassword) VALUES ('$_POST[userName]', '$_POST[mail]', '$_POST[phoneNumber]','$password')";
+        //move the file to temp lcoation to actual location//
+        move_uploaded_file($fileTmpDestination, $fileDestination);
+        $query = "INSERT INTO USER(UserName, Mail, Phone, Gender, UserPassword, IDFile) VALUES ('$userName', '$mail', '$phoneNumber','$_POST[gender]','$password','$fileActualName')";
+        //echo $query;
         echo "data inserted succesfully";
         $db->updateTable($query);
+        $userName = "";
+        $phoneNumber = "";
+        $mail = "";
         $success = "Your account has been registered.Once the admin approves your account,a mail will be sent to confirm your account activation!";
-        die;
+        //die;
     }
+   
 }
 ?>
 
@@ -148,15 +178,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div class="container">
         <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data">
             <div>
-                <input class="form-control mt-3 mb-3" type="text" name="userName" placeholder="Full Name" minlength=3 maxlength=100>
+                <input class="form-control mt-3 mb-3" type="text" name="userName" id = "userName" placeholder="Full Name" value = "<?php echo $userName;?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
                 <span class="error">* <?php echo $nameError; ?></span>
             </div>
             <div>
-                <input class="form-control mb-3" type="tel" name="phoneNumber" placeholder="Phone Number" minlength=4 maxlength=15>
+                <input class="form-control mb-3" type="tel" name="phoneNumber" id = "phoneNumber" placeholder="Phone Number" value = "<?php echo $phoneNumber;?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
                 <span class="error">* <?php echo $phnError; ?></span>
             </div>
             <div>
-                <input class="form-control mb-3" type="email" name="mail" placeholder="tv@gmail.com">
+                <input class="form-control mb-3" type="email" name="mail" id = "mail" placeholder="tv@gmail.com" value = "<?php echo $mail;?>" required>
                 <span class="error">* <?php echo $mailError; ?></span>
             </div>
             <div>
@@ -166,15 +196,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <span class="error">* <?php echo $genderError; ?></span>
             </div>
             <div>
-                <input class="form-control mb-3" type="password" name="password1" placeholder="password">
+                <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
                 <span class="error">* <?php echo $pass1Error; ?></span>
             </div>
             <div>
-                <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password">
+                <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$"> 
                 <span class="error">* <?php echo $pass2Error; ?></span>
             </div>
             <div>
-                <input type="file" class="mb-3" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg">
+                <input type="file" class="mb-3" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
                 <span class="error">* <?php echo $filesError; ?></span>
             </div>
             <div>
@@ -186,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  
 </body>
 
 </html>

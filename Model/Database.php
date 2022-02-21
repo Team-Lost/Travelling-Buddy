@@ -17,11 +17,22 @@
                 Mail varchar(255) UNIQUE,
                 Phone varchar(15) UNIQUE,
                 UserPassword varchar(64),
-                Status varchar(20) DEFAULT 'PENDING',
-                creationDate DATE DEFAULT (CURRENT_DATE)               
+                Gender varchar(15),
+                Rank varchar(20) DEFAULT 'PENDING',
+                IDFile varchar(255),
+                creationDate DATETIME DEFAULT NOW()               
             )";
-            mysqli_query($this->connect(), $table);           
-        }        
+            mysqli_query($this->connect(), $table);
+            $table = "create table if not exists passwordReset
+            (
+                ResetID int AUTO_INCREMENT PRIMARY KEY,
+                ResetMail varchar(255) NOT NULL,
+                ResetSelector varchar(255),
+                ResetToken varchar(255),
+                ResetExpire varchar(255) 
+            )";
+            mysqli_query($this->connect(), $table);
+        }          
         function connect()
         {           
             $conn = mysqli_connect($this->servername,$this->username,$this->password, $this->db);
