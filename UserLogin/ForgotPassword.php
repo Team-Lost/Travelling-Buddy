@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $token = random_bytes(32);
     //  $expires = date("U")+ 1800;
     $expires = time() + 1800;
-    $url = "http://localhost/codes/Travelling-Buddy/UserLogin/ResetPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "http://localhost/Travelling-Buddy/UserLogin/ResetPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
     //echo $url;
     $userExists = false;
     $checkMail = $_POST['resetMail'];

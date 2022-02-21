@@ -39,14 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $loginError =  "Check your inputs";
     } else {
         if (password_verify($_POST['password'], $dbPassword)) {
-            if (!$uRank = 'PENDING') {
+            if ($uRank != 'PENDING') {
                 echo "Login Successful";
                 $_SESSION['UserID'] = $uID;
                 $_SESSION['UserName'] = $uName;
                 $_SESSION['Mail'] = $uMail;
                 $_SESSION['Phone'] = $uPhn;
                 $_SESSION['AccessRank'] = $uRank;
-                header("Location: ../index.php");
+                header("Location: ../home.php");
                 die;
             } else {
                 $loginError = "Your account is not approved by admin yet!";

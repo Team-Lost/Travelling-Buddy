@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['UserID'])) {
+    header("Location:UserLogin/Login.php");
+}
+include "Model/Database.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,7 +122,7 @@
         </form>
     </div>
     <?php
-
+    $currID = $_SESSION['UserID'];
     if (isset($_POST['Submit'])) {
         $startTime = $_POST['startTime'];
         $endTime = $_POST['endTime'];
@@ -128,7 +137,7 @@
         }
         $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
         $query = "INSERT INTO POSTS(posterID, location, budget, description, startingTime, endingTime) VALUES" .
-            "(190104116, '$location', $budget, '$description', '$startTime', '$endTime')";
+            "($currID, '$location', $budget, '$description', '$startTime', '$endTime')";
         echo $query . '<br>';
         mysqli_query($conn, $query);
     }

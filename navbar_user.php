@@ -18,7 +18,7 @@
     <div>
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Sign Out<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="UserLogin/Logout.php">Sign Out<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>

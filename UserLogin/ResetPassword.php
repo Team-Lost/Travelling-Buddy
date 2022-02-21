@@ -11,28 +11,17 @@ if (isset($_POST['submit'])) {
     $password2 = $_POST['password2'];
     if (empty($password1) || empty($password2)) {
         $passError = "Please fill out both the fields!";
-       
-    }
-    else if ($password1 != $password2) {
+    } else if ($password1 != $password2) {
         $passError = "Passwords don't match!";
-      
     }
     //
     else {
-        $currentDate = time();
-        echo $currentDate;
-        //Expire er ager selector ache kina check  
-        $query = "Select * from passwordReset where ResetSelector = '$selector' && ResetExpire >= '$currentDate'";
-        echo $query;
-        $db = new database();
-        $res = mysqli_query($db->connect(), $query);
+        
         if (mysqli_num_rows($res) > 0) {
-            if (!$row = mysqli_fetch_assoc($res)) {
-                $passError = "You need to resubmit your reset request!";
-                header("Location: ForgotPassword.php");
-            } else {
+            if ($row = mysqli_fetch_assoc($res)) {
+                $cnt++;
+                print_r($row);
                 $tokenBin = hex2bin($validator);
-                echo $tokenBin;
                 $tokenCheck = password_verify($tokenBin, $row["ResetToken"]);
                 if (!$tokenCheck) {
                     $passError = "You need to resubmit your reset request!";
@@ -40,15 +29,19 @@ if (isset($_POST['submit'])) {
                 } else {
                     //  $query = "Select Password from User where Mail = ".$row['ResetMail'];
                     // echo $query."<br>";
-                    $newPassword = password_hash($_POST['Password1'], PASSWORD_DEFAULT);
+                    $newPassword = password_hash($password1, PASSWORD_DEFAULT);
                     $query = "Update User Set UserPassword = '$newPassword' where Mail = '$row[ResetMail]'";
                     $db->updateTable($query);
                     echo $query . "<br>";
                     $query = "Delete from PasswordReset where ResetMail = '$row[ResetMail]'";
                     $db->updateTable($query);
-                    header("Location: Login.php");
+                    //header("Location: Login.php");
                 }
             }
+        }
+        if ($cnt == 0) {
+            $passError = "You need to resubmit your reset request!";
+            echo $passError;
         }
         echo $query;
     }

@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['UserID'])) {
+    header("Location:UserLogin/Login.php");
+}
+include "Model/Database.php";
+
+?>
+
 <html>
 
 <head>
@@ -69,7 +78,7 @@
 <body>
     <?php
     include "navbar_user.php";
-    $currID = "190104116";
+    $currID = $_SESSION['UserID'];
     $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
     $query = "SELECT * FROM POSTS" .
         " LEFT JOIN (SELECT SUM(voteStatus) AS voteCount, postID AS votedPostID FROM VOTES GROUP BY(postID)) AS countedVote" .
@@ -79,7 +88,7 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $userPost = $row;
             $voteStatus = 0;
-            $voteQuery = "SELECT * FROM `votes` WHERE postID = " . $row['postID'] . " AND voterID = 190104116";
+            $voteQuery = "SELECT * FROM `votes` WHERE postID = " . $row['postID'] . " AND voterID = $currID";
             $upvoteIconClass = $downvoteIconClass = "";
             $res = mysqli_query($conn, $voteQuery);
             if (mysqli_num_rows($res) > 0) {
