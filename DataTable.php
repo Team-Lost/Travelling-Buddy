@@ -1,9 +1,54 @@
 <?php
-include "Model/Database.php";
-//  require 'PHPMailer-master/mail.php';
-$db = new database();
-$query = "SELECT * from User";
-$res = mysqli_query($db->connect(), $query);
+    include "Model/Database.php";
+    require '../PHPMailer-master/mail.php';
+    function getMail($userID)
+    {
+        $db = new database();
+        $query = "Select Mail from User where UserID = $userID";
+        $res = mysqli_query($db->connect(), $query);
+        if (mysqli_num_rows($res) > 0) {
+            if ($row = mysqli_fetch_assoc($res)) {
+                return $row['Mail'];
+            }
+         }
+    }
+if(isset($_POST['task']))
+{
+    $db = new database();
+    if($_POST['task'] == "approve")
+    {
+        $url = "http://localhost/Travelling-Buddy/UserLogin/Login.php?";
+        $userID = $_POST['userID'];       
+        $query = "Update User Set Rank = 'USER' where UserID = $userID";       
+        $db->updateTable($query);        
+        $receipient = getMail($userID);
+        $subject = "Approve Confirmation";
+        $message = '<h2><center>Welcome to Travelling Buddy!</center></h2><br><br>
+                       You are now part of the community of travellers.Here you can plan a trip with fellow travellers according to your ease and choice.Enjoy!<br><br>
+                       <a href = "'.$url.'" class = "mail">Get Started</a><br><br>
+                       Sincerely,<br>
+                       Travelling Buddy team
+                       </p><br><br>';            
+    }
+    //reject dile ki hoy?
+    if($_POST['task'] == "reject")
+    {
+        $userID = $_POST['userID'];             
+        $receipient = getMail($userID);        
+        $subject = "Rejected Account";
+        $message = '<p>Hello there,<br><br>
+                       Your account was not approved.Please provide valid informations.<br><br>
+                       Sincerely,<br>
+                       Travelling Buddy team
+                       </p><br><br>';
+        $query = "Delete User where UserID = $userID";                          
+    }
+    if(sendMail($receipient, $subject, $message))
+    {
+       echo "Email Sent!";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +58,12 @@ $res = mysqli_query($db->connect(), $query);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .mail
+        {
+              background-color: skyblue;  
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -37,31 +88,18 @@ $res = mysqli_query($db->connect(), $query);
             </thead>
             <tbody>
                 <?php
+                $db = new database();
+                $query = "SELECT * from User";
+                $res = mysqli_query($db->connect(), $query);
                 if (mysqli_num_rows($res) > 0) {
 
                     while ($row = mysqli_fetch_array($res)) {
-
-                        ?> 
-                                <tr>  
-                                    <td><?php echo $row['UserID'];?></td>  
-                                    <td><?php echo $row['UserName'];?></td>  
-                                    <td><?php echo $row['Phone'];?></td>  
-                                    <td><a href="mailto:"><?php echo $row['Mail'];?><a></td>  
-                                    <td><?php echo$row['Gender'];?></td>
-                                    <td><?php echo$row['Rank'];?></td>  
-                                    <td><?php echo$row['IDFile'];?></td>
-                                    <td><?php echo $row['creationDate'];?></td>
-                                    <td><a href="Approve">Approve</a>
-                                     <a href="Reject">Reject</a></td>      
-                               </tr>  
-                     <?php          
+                        include "Model/user_row.php";
                     }
                 }
                 ?>
-              
-
             </tbody>
-        </table>
+        </table>    
 
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -74,10 +112,31 @@ $res = mysqli_query($db->connect(), $query);
     <script>
         $(document).ready(function() {
             $('#userTable').DataTable({
-               // responsive: true
+                // responsive: true
             });
             //new $.fn.dataTable.FixedHeader(table);
         });
+
+        function Approve(userID) {
+            alert(userID);
+            $.ajax({
+                type:'post',
+                data: {
+                    task: "approve",
+                    userID: userID
+                }
+            });
+        }
+        function Reject(userID) {
+            alert(userID);
+            $.ajax({
+                type:'post',
+                data: {
+                    task: "reject",
+                    userID: userID
+                }
+            });
+        }
     </script>
 </body>
 
