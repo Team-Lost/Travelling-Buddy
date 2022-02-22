@@ -71,6 +71,10 @@ if (!isset($_SESSION['UserID'])) {
         .margin-b20 {
             margin-bottom: 20px;
         }
+
+        .bg-inherit {
+            background-color: inherit;
+        }
     </style>
 </head>
 
@@ -120,6 +124,7 @@ if (!isset($_SESSION['UserID'])) {
         }
     }
     if (isset($_POST['ajax'])) {
+        echo "$here";
         if ($_POST['task'] == 'join') {
             $postID = $_POST['postID'];
             $query = "INSERT INTO CHATS VALUES($postID, $currID)";
@@ -138,15 +143,20 @@ if (!isset($_SESSION['UserID'])) {
             }
         }
     }
+    if (isset($_POST['btn-comment'])) {
+        $comment = $_POST['comment'];
+        $query = "INSERT INTO COMMENTS(postID, userID, comment) VALUES($postID, $currID, '$comment')";
+        mysqli_query($conn, $query);
+    }
     ?>
     <div class="container mt-p-10-5 container-fitter">
         <form action="#" method="post" id="inp_form">
             <textarea id="comment" placeholder="Write your comment here..." name="comment" class="form-control bottom-input margin-1-2" rows="3"></textarea>
-            <button id="btn-comment" type="submit" class="btn btn-info form-control margin-1-2" name="Submit">Comment</button>
+            <button type="submit" name="btn-comment" id="btn-comment" class="btn btn-info form-control margin-1-2">Comment</button>
         </form>
     </div>
 
-    <div class="container mt-p-10-5 container-fitter">
+    <div id="div-comment" class="container-fluid mt-p-10-5 bg-inherit">
         <?php
         $query = "SELECT user.UserName, comments.commentID, comments.postID, comments.userID, comments.comment, comments.time, comments.replyID
             FROM comments
@@ -162,7 +172,7 @@ if (!isset($_SESSION['UserID'])) {
 
         ?>
     </div>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script>
@@ -179,16 +189,6 @@ if (!isset($_SESSION['UserID'])) {
                         postID: postID,
                     }
                 });
-            }
-            if(btnID.toString() == 'btn-comment') {
-                var comment = document.getElementById("comment");
-                $ajax({
-                    type: 'post',
-                    data: {
-                        task: 'comment',
-                        comment: comment.value().trim()
-                    }
-                })
             }
             if (btnID.toString() == 'btn-upvote' || btnID.toString() == 'btn-downvote') {
                 var curr = $(this);
@@ -220,7 +220,6 @@ if (!isset($_SESSION['UserID'])) {
                         change = -1;
                     }
                 }
-
                 iconUpvote.setAttribute("vote", vote);
                 iconDownvote.setAttribute("vote", vote);
                 if (vote == -1) {
