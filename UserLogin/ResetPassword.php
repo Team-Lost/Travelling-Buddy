@@ -80,22 +80,26 @@
         <form action="#" method="post">
             <div class="form-group">
                 <h3 class="text-center p-2">Enter your new password!</p>
-                <input class="form-control m-1" type="hidden" name="selector" value="<?php echo $selector ?>">
-                <input class="form-control m-1" type="hidden" name="validator" value="<?php echo $validator ?>">
-                <input class="form-control m-1" type="password" name="password1" placeholder="Enter a new password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                <input class="form-control m-1" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                <input class="form-control btn btn-info margin-t15" type="submit" name="submit" value="Reset Password">
-                <p class="text-center"> <?php echo $passError; ?></p>
+                    <input class="form-control m-1" type="hidden" name="selector" value="<?php echo $selector ?>">
+                    <input class="form-control m-1" type="hidden" name="validator" value="<?php echo $validator ?>">
+                    <input class="form-control m-1" type="password" name="password1" placeholder="Enter a new password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                    <input class="form-control m-1" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                    <input class="form-control btn btn-info margin-t15" type="submit" name="submit" value="Reset Password">
+                    <p class="text-center"> <?php echo $passError; ?></p>
             </div>
         </form>
     </div>
     <script>
-        var container = document.getElementsByClassName("container-fitter");
-        if (screen.width > 820) {
-            container[0].setAttribute("style", "width: 40%; margin-top: 30vh;");
-        } else {
-            container[0].setAttribute("style", "width: 90%; margin-top: 30vh;");
+        function resizeWindow() {
+            var container = document.getElementsByClassName("container-fitter");
+            if (screen.width > 820) {
+                container[0].setAttribute("style", "width: 40%; margin-top: 30vh;");
+            } else {
+                container[0].setAttribute("style", "width: 90%; margin-top: 30vh;");
+            }
         }
+
+        window.addEventListener("resize", resizeWindow);
     </script>
 </body>
 

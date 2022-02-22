@@ -34,13 +34,6 @@
     border-radius: 20px;
 }
 
-@media only screen and (min-width: 820px) {
-    .container-fitter {
-        width: 90%;
-    }
-}
-
-
 .text-center-v {
     vertical-align: baseline;
     line-height: 100%;
