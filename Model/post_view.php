@@ -1,3 +1,28 @@
+<?php
+$voteStatus = 0;
+$voteQuery = "SELECT * FROM `votes` WHERE postID = " . $userPost['postID'] . " AND voterID = $currID";
+$upvoteIconClass = $downvoteIconClass = "";
+$res = mysqli_query($conn, $voteQuery);
+if (mysqli_num_rows($res) > 0) {
+    while ($currRow = mysqli_fetch_assoc($res)) {
+        $voteStatus = $currRow['voteStatus'];
+    }
+}
+
+if ($voteStatus == -1) {
+    $upvoteIconClass = "fa-regular fa-thumbs-up fa-xl";
+    $downvoteIconClass = "fa-solid fa-thumbs-down fa-xl";
+} else if ($voteStatus == 0) {
+    $upvoteIconClass = "fa-regular fa-thumbs-up fa-xl";
+    $downvoteIconClass = "fa-regular fa-thumbs-down fa-xl";
+} else {
+    $upvoteIconClass = "fa-solid fa-thumbs-up fa-xl";
+    $downvoteIconClass = "fa-regular fa-thumbs-down fa-xl";
+}
+if (is_null($userPost['voteCount'])) {
+    $userPost['voteCount'] = 0;
+}
+?>
 <div class="container mt-p-10-5 container-fitter b3d-s">
     <div class="row justify-content-center">
         <div class="col-1">
@@ -50,7 +75,7 @@
                 <button id="btn-join" type="button" post-id="<?php echo $userPost['postID'] ?>" class="btn btn-info btn-h40">
                     <i class="fa-regular fa-square-check fa-xl"></i>
                     <span class="mx-1">Join</span></button>
-                <button type="button" class="btn btn-info btn-h40">
+                <button type="button" class="btn btn-info btn-h40" onclick="javascript:loadPost(<?php echo $userPost['postID'] ?>)">
                     <i class="fa-regular fa-comment-dots fa-xl"></i>
                     <span class="mx-1">Comment</span></button>
             </div>
