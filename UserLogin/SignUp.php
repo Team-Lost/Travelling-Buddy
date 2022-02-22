@@ -165,8 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>SignUp</title>
-     <!--Main CSS-->
-     <link rel="stylesheet" href="../Assets/css/signup.css">
+    <!--Main CSS-->
+    <link rel="stylesheet" href="../Assets/css/signup.css">
 </head>
 
 <body>
@@ -195,35 +195,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <span class="error"><?php echo $nameError; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="phoneNumber" class = "mt-3">Phone Number*</label>
+                    <label for="phoneNumber" class="mt-3">Phone Number*</label>
                     <input class="form-control mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number(Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
                     <span class="error"> <?php echo $phnError; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="mail" class = "mt-3">Mail*</label>
+                    <label for="mail" class="mt-3">Mail*</label>
                     <input class="form-control mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
                     <span class="error"><?php echo $mailError; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="gender" class = "mt-3">Gender*</label>
+                    <label for="gender" class="mt-3">Gender*</label>
                     <input type="radio" name="gender" value="male" required>Male
                     <input type="radio" name="gender" value="female">Female
                     <input type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
                     <span class="error"><?php echo $genderError; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="password1" class = "mt-3">Password*</label>
+                    <label for="password1" class="mt-3">Password*</label>
                     <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
                     <span class="error"><?php echo $pass1Error; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="password2" class = "mt-3">Confirm Password*</label>
+                    <label for="password2" class="mt-3">Confirm Password*</label>
                     <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
                     <span class="error"><?php echo $pass2Error; ?></span>
                 </div>
                 <div class="input-container">
-                    <label for="files" class = "mt-3">Files*</label>
-                    <input type="file"  name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
+                    <label for="files" class="mt-3">Files*</label>
+                    <input type="file" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
                     <span class="error"><?php echo $filesError; ?></span>
                 </div>
                 <div class="input-container">
