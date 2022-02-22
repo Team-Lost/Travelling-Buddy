@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['Rank'])) {
-    if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
+    if (!($_SESSION['Rank'] == 'ADMIN' || $_SESSION['Rank'] == 'MODERATOR')) {
         echo "<h1>404 Error </h1>
             <h4>Page not found1!</h4>";
         return;

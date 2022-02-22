@@ -166,7 +166,89 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>SignUp</title>
     <!--Main CSS-->
-    <link rel="stylesheet" href="../Assets/css/signup.css">
+    <style>
+        :root {
+            font-size: 100%;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .split-screen {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left {
+            height: 200px;
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../Images/1.jpg");
+            background-repeat: no-repeat;
+            background-size: auto 100vh;
+
+        }
+
+        .left,
+        .right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .left .copy {
+            color: white;
+            text-align: center;
+        }
+
+        .right .copy {
+            text-align: center;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form input[type="password"] {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        label {
+            padding: 0 5px;
+        }
+
+        form input[type="submit"] {
+            width: 100%;
+            display: block;
+            border-radius: 15px;
+        }
+
+        form input[type="file"] {
+            margin: 0;
+            padding: 2rem 1.5rem;
+            font: 1rem/1.5 "PT Sans", Arial, sans-serif;
+            color: #5a5a5a;
+        }
+
+        @media screen and (min-width:900px) {
+            .split-screen {
+                flex-direction: row;
+                height: 100vh;
+            }
+
+            .left,
+            .right {
+                display: flex;
+                width: 50%;
+                height: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
