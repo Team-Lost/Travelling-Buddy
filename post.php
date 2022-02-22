@@ -18,67 +18,10 @@ if (!isset($_SESSION['UserID'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: bisque;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
-        button {
-            height: 40px;
-        }
-
-        .container-fitter {
-            width: 40%;
-            justify-content: center;
-            margin: auto;
-            background-color: white;
-            border-radius: 20px;
-        }
-
-        .text-center-v {
-            vertical-align: baseline;
-            line-height: 100%;
-            margin: auto;
-        }
-
-        .margin-1-2 {
-            margin-top: 2px;
-            margin-bottom: 2px;
-            margin-left: 1px;
-            margin-right: 1px;
-        }
-
-        .mt-p-10-5 {
-            margin-top: 10px;
-            padding-bottom: 2px;
-            padding-top: 5px;
-        }
-
-        .gap-gray {
-            width: 100%;
-            height: 5px;
-            background-color: gray;
-        }
-
-        .image-center {
-            margin-top: 6px;
-            display: inline-block;
-            vertical-align: middle;
-            position: relative;
-        }
-
-        .margin-b20 {
-            margin-bottom: 20px;
-        }
-
-        .bg-inherit {
-            background-color: inherit;
-        }
-    </style>
+    <link href="Assets/css/home.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="body-ssp-fb">
     <?php
     if (!isset($_GET['postID'])) {
         echo "404 Not Found!";
@@ -152,7 +95,7 @@ if (!isset($_SESSION['UserID'])) {
     <div class="container mt-p-10-5 container-fitter">
         <form action="#" method="post" id="inp_form">
             <textarea id="comment" placeholder="Write your comment here..." name="comment" class="form-control bottom-input margin-1-2" rows="3"></textarea>
-            <button type="submit" name="btn-comment" id="btn-comment" class="btn btn-info form-control margin-1-2">Comment</button>
+            <button type="submit" name="btn-comment" id="btn-comment" class="btn btn-info btn-h40 form-control margin-1-2">Comment</button>
         </form>
     </div>
 

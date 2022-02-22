@@ -1,4 +1,4 @@
-<div class="container mt-p-10-5 container-fitter">
+<div class="container mt-p-10-5 container-fitter b3d-s">
     <div class="row justify-content-center">
         <div class="col-1">
             <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
@@ -37,20 +37,20 @@
         </div>
         <div class="col-2 text-center text-center-v">
             <div class="btn-group" role="group">
-                <button id="btn-upvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info">
+                <button id="btn-upvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info btn-h40">
                     <i id="upvote-<?php echo $userPost['postID'] ?>" vote="<?php echo $voteStatus ?>" class="<?php echo $upvoteIconClass ?>"></i>
                 </button>
-                <button id="btn-downvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info">
+                <button id="btn-downvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info btn-h40">
                     <i id="downvote-<?php echo $userPost['postID'] ?>" vote="<?php echo $voteStatus ?>" class="<?php echo $downvoteIconClass ?>"></i>
                 </button>
             </div>
         </div>
         <div class="col-8">
             <div class="btn-group" role="group">
-                <button id="btn-join" type="button" post-id="<?php echo $userPost['postID'] ?>" class="btn btn-info">
+                <button id="btn-join" type="button" post-id="<?php echo $userPost['postID'] ?>" class="btn btn-info btn-h40">
                     <i class="fa-regular fa-square-check fa-xl"></i>
                     <span class="mx-1">Join</span></button>
-                <button type="button" class="btn btn-info">
+                <button type="button" class="btn btn-info btn-h40">
                     <i class="fa-regular fa-comment-dots fa-xl"></i>
                     <span class="mx-1">Comment</span></button>
             </div>

@@ -20,86 +20,10 @@ include "Model/Database.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: bisque;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
-        button {
-            height: 40px;
-        }
-
-        .bottom-input {
-            background-color: transparent;
-            border-top: 0px solid red;
-            border-left: 0px solid red;
-            border-right: 0px solid red;
-            border-bottom: 2px solid #2FD6F9;
-            font-size: 14pt;
-            color: white;
-        }
-
-        .bottom-input:focus {
-            background-color: transparent;
-            outline: none;
-            border-top: 0px solid red;
-            border-left: 0px solid red;
-            border-right: 0px solid red;
-            border-bottom: 2px solid #141526;
-        }
-
-        .container-fitter {
-            width: 40%;
-            justify-content: center;
-            margin: auto;
-            background-color: white;
-            border-radius: 20px;
-        }
-
-        .text-center-v {
-            vertical-align: baseline;
-            line-height: 100%;
-            margin: auto;
-        }
-
-        .margin-1-2 {
-            margin-top: 2px;
-            margin-bottom: 2px;
-            margin-left: 1px;
-            margin-right: 1px;
-        }
-
-        .mt-p-10-5 {
-            margin-top: 10px;
-            padding-bottom: 10px;
-            padding-top: 5px;
-        }
-
-        .gap-gray {
-            width: 100%;
-            height: 5px;
-            background-color: gray;
-        }
-
-        .image-center {
-            margin-top: 6px;
-            display: inline-block;
-            vertical-align: middle;
-            position: relative;
-        }
-
-        .margin-b20 {
-            margin-bottom: 20px;
-        }
-
-        .margin-t5 {
-            margin-top: 5px
-        }
-    </style>
+    <link href="Assets\css\home.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="body-ssp-fb">
     <?php
     include "navbar_user.php";
     ?>
