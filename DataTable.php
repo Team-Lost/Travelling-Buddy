@@ -1,14 +1,14 @@
 <?php
 session_start();
 if (isset($_SESSION['Rank'])) {
-    if ($_SESSION['Rank'] != 'ADMIN' || $_SESSION['Rank'] != 'MODERATOR') {
-        echo "<h1>404 Error</h1>
-            <h4>Page not found!</h4>";
+    if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
+        echo "<h1>404 Error </h1>
+            <h4>Page not found1!</h4>";
         return;
     }
 } else {
     echo "<h1>404 Error</h1>
-            <h4>Page not found!</h4>";
+            <h4>Page not found2!</h4>";
     return;
 }
 include "Model/Database.php";
@@ -81,6 +81,7 @@ if (isset($_POST['task'])) {
 </head>
 
 <body>
+    <?php include "navbar_user.php" ?>
     <div class="container mb-3 mt-3">
         <table class="table table-striped table-bordered" style="width: 100%" id="userTable">
             <thead>
