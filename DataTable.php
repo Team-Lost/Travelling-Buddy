@@ -2,17 +2,13 @@
 session_start();
 if (isset($_SESSION['Rank'])) {
     if ($_SESSION['Rank'] != 'ADMIN' || $_SESSION['Rank'] != 'MODERATOR') {
-?>
-        <h1>404 Error</h1>
-        <h4>Page not found!</h4>
-    <?php
+        echo "<h1>404 Error</h1>
+            <h4>Page not found!</h4>";
         return;
     }
 } else {
-    ?>
-    <h1>404 Error</h1>
-    <h4>Page not found!</h4>
-<?php
+    echo "<h1>404 Error</h1>
+            <h4>Page not found!</h4>";
     return;
 }
 include "Model/Database.php";

@@ -13,6 +13,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Messages</a>
             </li>
+            <?php
+            if ($_SESSION['Rank'] == 'ADMIN') {
+                echo "<li class='nav-item'>
+                    <a class='nav-link' href='DataTable.php'>Admin Panel</a>
+                    </li>";
+            }
+            ?>
         </ul>
     </div>
     <div>

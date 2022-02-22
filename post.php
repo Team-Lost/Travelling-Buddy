@@ -24,7 +24,7 @@ if (!isset($_SESSION['UserID'])) {
 <body class="body-ssp-fb">
     <?php
     if (!isset($_GET['postID'])) {
-        echo "404 Not Found!";
+        echo "<p class='text-center'>404 Not Found!</p>";
         return;
     }
     include "navbar_user.php";
