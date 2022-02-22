@@ -66,30 +66,38 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--Main CSS-->
+    <link rel="stylesheet" href="../Assets/css/login.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
-        <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data">
-            <div>
-                <input class="form-control mb-3" type="email" name="mail" placeholder="tv@gmail.com" title="Please enter a valid mail!">
-                <span class="error">* <?php echo $mailError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="password" name="password" placeholder="password">
-                <span class="error">* <?php echo $passError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="submit" name="submit">
-            </div>
-            <div>
-                <p><?php echo $loginError; ?></p>
-            </div>
-            <a href="ForgotPassword.php">Forgot your password?</a>
-            <a href = "SignUp.php">Sign Up</a>
-        </form>
-    </div>
+            <div class = "split-screen">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="formHeader">
+                        <h1 class="text-center">Sign In</h1>
+                    </div>
+                    <div class="formWrapper text-center">
+                        <label for="">Email:</label>
+                        <input type="email" id="formInput" name="mail" placeholder="tv@gmail.com" title="Please enter a valid mail!">
+                        <span class="error">* <?php echo $mailError; ?></span>
+                    </div>
+                    <div class="formWrapper">
+                        <label for="">Password:</label>
+                        <input type="password" id="formInput" name="password" placeholder="password">
+                        <span class="error">* <?php echo $passError; ?></span>
+                    </div>
+                    <div>
+                        <input type="submit" class="formSubmit" name="submit">
+                    </div>
+                    <div>
+                        <p><?php echo $loginError; ?></p>
+                    </div>
+
+                    <a href="ForgotPassword.php" class="formAnchor"><span></span>Forgot your password?</a>
+     
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

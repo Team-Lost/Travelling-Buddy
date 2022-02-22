@@ -1,9 +1,9 @@
 <?php
 session_start();
 include "../Model/Database.php";
-$nameError = $mailError = $genderError = $filesError = $filesError = $phnError = $pass1Error = $pass2Error = $success = $userName =  $mail = $phoneNumber = $checkMail = $checkPhone ="";
+$nameError = $mailError = $genderError = $filesError = $filesError = $phnError = $pass1Error = $pass2Error = $success = $userName =  $mail = $phoneNumber = $checkMail = $checkPhone = "";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-   //echo "<pre>";
+    //echo "<pre>";
     //print_r($_POST);
     //echo "</pre>";
 
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $mailError = "Email already exists!";
         $error = true;
     }
-    
+
 
     //---check radio button---//
     if (empty($_POST['gender'])) {
@@ -99,30 +99,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $fileSize = -1;
 
         $file = $_FILES['files'];
-       // echo "<pre>";
-       // echo "test";
-       // print_r($_FILES['files']);
-       // echo "</pre>";
+        // echo "<pre>";
+        // echo "test";
+        // print_r($_FILES['files']);
+        // echo "</pre>";
         $fileName = $_FILES['files']['name'];
         $fileTmpDestination = $_FILES['files']['tmp_name'];
         $fileSize = $_FILES['files']['size'];
         $fileError = $_FILES['files']['error'];
         $fileType = $_FILES['files']['type'];
         $fileExt = explode('.', $fileName);
-        $fileActualExt = strtolower(end($fileExt));       
+        $fileActualExt = strtolower(end($fileExt));
         $allowed = array('jpg', 'jpeg', 'png', 'pdf');
         if (in_array($fileActualExt, $allowed)) {
             if ($fileError === 0) {
                 if ($fileSize < 8000000) {
                     $fileActualName = md5($fileExt[0]) . "." . $fileActualExt;
-                    if($fileActualExt == "pdf")
-                    {
-                        $fileDestination = '../UserIdentification/Documents/' . $fileActualName;      
-                    }
-                    else
-                    {                   
+                    if ($fileActualExt == "pdf") {
+                        $fileDestination = '../UserIdentification/Documents/' . $fileActualName;
+                    } else {
                         $fileDestination = '../UserIdentification/Images/' . $fileActualName;
-                    }                
+                    }
                 } else {
                     $filesError = "File size exceeds 8 mb!";
                     $error = true;
@@ -154,7 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $success = "Your account has been registered.Once the admin approves your account,a mail will be sent to confirm your account activation!";
         //die;
     }
-   
 }
 ?>
 
@@ -168,55 +164,81 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>SignUp 1</title>
+    <title>SignUp</title>
+     <!--Main CSS-->
+     <link rel="stylesheet" href="../Assets/css/signup.css">
 </head>
 
 <body>
 
 
     <!--Client Side Validation-->
-    <div class="container">
-        <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data">
-            <div>
-                <input class="form-control mt-3 mb-3" type="text" name="userName" id = "userName" placeholder="Full Name" value = "<?php echo $userName;?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
-                <span class="error">* <?php echo $nameError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="tel" name="phoneNumber" id = "phoneNumber" placeholder="Phone Number" value = "<?php echo $phoneNumber;?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
-                <span class="error">* <?php echo $phnError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="email" name="mail" id = "mail" placeholder="tv@gmail.com" value = "<?php echo $mail;?>" required>
-                <span class="error">* <?php echo $mailError; ?></span>
-            </div>
-            <div>
-                <input type="radio" name="gender" value="male" required>Male
-                <input type="radio" name="gender" value="female">Female
-                <input type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
-                <span class="error">* <?php echo $genderError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                <span class="error">* <?php echo $pass1Error; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$"> 
-                <span class="error">* <?php echo $pass2Error; ?></span>
-            </div>
-            <div>
-                <input type="file" class="mb-3" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
-                <span class="error">* <?php echo $filesError; ?></span>
-            </div>
-            <div>
-                <input class="form-control mb-3" type="submit" name="submit">
-            </div>
-            <div>
-                <label><?php echo $success; ?></label>
-            </div>
+    <div class="split-screen">
+        <div class="left">
+            <section class="copy">
+                <h1>Travelling Buddy</h1>
+
+            </section>
+        </div>
+        <div class="right">
+            <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data">
+                <section class="copy">
+                    <h2>Sign Up</h2>
+                    <div class="login-container">
+                        <p>Already Have an account?</p>
+                        <a href="Login.php">Sign In</a>
+                    </div>
+                </section>
+                <div class="input-container">
+                    <label for="userName">User Name*</label>
+                    <input class="form-control mb-3" type="text" name="userName" id="userName" placeholder="Full Name(Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
+                    <span class="error"><?php echo $nameError; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="phoneNumber" class = "mt-3">Phone Number*</label>
+                    <input class="form-control mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number(Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
+                    <span class="error"> <?php echo $phnError; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="mail" class = "mt-3">Mail*</label>
+                    <input class="form-control mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
+                    <span class="error"><?php echo $mailError; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="gender" class = "mt-3">Gender*</label>
+                    <input type="radio" name="gender" value="male" required>Male
+                    <input type="radio" name="gender" value="female">Female
+                    <input type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
+                    <span class="error"><?php echo $genderError; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="password1" class = "mt-3">Password*</label>
+                    <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                    <span class="error"><?php echo $pass1Error; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="password2" class = "mt-3">Confirm Password*</label>
+                    <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                    <span class="error"><?php echo $pass2Error; ?></span>
+                </div>
+                <div class="input-container">
+                    <label for="files" class = "mt-3">Files*</label>
+                    <input type="file"  name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
+                    <span class="error"><?php echo $filesError; ?></span>
+                </div>
+                <div class="input-container">
+                    <input class="form-control mt-3" type="submit" name="submit">
+                </div>
+                <div>
+                    <label><?php echo $success; ?></label>
+                </div>
+        </div>
         </form>
     </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  
+
 </body>
 
 </html>

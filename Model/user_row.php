@@ -15,8 +15,8 @@
     ?>
     <td><a href="<?php echo $fileDestination; ?>"><?php echo $row['IDFile']; ?></a></td>
     <td><?php echo $row['creationDate']; ?></td>
-
-    <td><a href="<?php echo "javascript:Approve($row[UserID])";?>">Approve</a>
+    <td>
+        <a href="<?php echo "javascript:Approve($row[UserID])";?>">Approve</a>
          <a href="<?php echo "javascript:Reject($row[UserID])";?>">Reject</a>
     </td>
 </tr>

@@ -1,51 +1,66 @@
 <?php
-    include "Model/Database.php";
-    require '../PHPMailer-master/mail.php';
-    function getMail($userID)
-    {
-        $db = new database();
-        $query = "Select Mail from User where UserID = $userID";
-        $res = mysqli_query($db->connect(), $query);
-        if (mysqli_num_rows($res) > 0) {
-            if ($row = mysqli_fetch_assoc($res)) {
-                return $row['Mail'];
-            }
-         }
+session_start();
+if (isset($_SESSION['Rank'])) {
+    if ($_SESSION['Rank'] != 'ADMIN' || $_SESSION['Rank'] != 'MODERATOR') {
+?>
+        <h1>404 Error</h1>
+        <h4>Page not found!</h4>
+    <?php
+        return;
     }
-if(isset($_POST['task']))
+} else {
+    ?>
+    <h1>404 Error</h1>
+    <h4>Page not found!</h4>
+<?php
+    return;
+}
+include "Model/Database.php";
+require 'PHPMailer-master/mail.php';
+function getMail($userID)
 {
     $db = new database();
-    if($_POST['task'] == "approve")
-    {
+    $query = "Select Mail from User where UserID = $userID";
+    $res = mysqli_query($db->connect(), $query);
+    if (mysqli_num_rows($res) > 0) {
+        if ($row = mysqli_fetch_assoc($res)) {
+            return $row['Mail'];
+        }
+    }
+}
+if (isset($_POST['task'])) {
+    $db = new database();
+    if ($_POST['task'] == "approve") {
         $url = "http://localhost/Travelling-Buddy/UserLogin/Login.php?";
-        $userID = $_POST['userID'];       
-        $query = "Update User Set Rank = 'USER' where UserID = $userID";       
-        $db->updateTable($query);        
+        $userID = $_POST['userID'];
+        $query = "Update User Set Rank = 'USER' where UserID = $userID";
+        $db->updateTable($query);
         $receipient = getMail($userID);
         $subject = "Approve Confirmation";
-        $message = '<h2><center>Welcome to Travelling Buddy!</center></h2><br><br>
+        $message = '<h2>Welcome to Travelling Buddy!</h2><br><br>
                        You are now part of the community of travellers.Here you can plan a trip with fellow travellers according to your ease and choice.Enjoy!<br><br>
-                       <a href = "'.$url.'" class = "mail">Get Started</a><br><br>
+                       <a href = "' . $url . '">Get Started</a><br><br>
                        Sincerely,<br>
                        Travelling Buddy team
-                       </p><br><br>';            
+                       </p><br><br>                       
+                       <small>If you are having trouble clicking on the link,copy and paste the link below in your browser</small>
+                       <br><p>' . $url . '</p>';
     }
     //reject dile ki hoy?
-    if($_POST['task'] == "reject")
-    {
-        $userID = $_POST['userID'];             
-        $receipient = getMail($userID);        
+    if ($_POST['task'] == "reject") {
+        $userID = $_POST['userID'];
+        $receipient = getMail($userID);
         $subject = "Rejected Account";
         $message = '<p>Hello there,<br><br>
                        Your account was not approved.Please provide valid informations.<br><br>
                        Sincerely,<br>
                        Travelling Buddy team
                        </p><br><br>';
-        $query = "Delete User where UserID = $userID";                          
+        $query = "Delete from User where UserID = $userID";
+        $db->updateTable($query);
     }
-    if(sendMail($receipient, $subject, $message))
-    {
-       echo "Email Sent!";
+    if (sendMail($receipient, $subject, $message)) {
+        echo "Email Sent!";
     }
 }
 
@@ -59,10 +74,7 @@ if(isset($_POST['task']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .mail
-        {
-              background-color: skyblue;  
-        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
@@ -99,7 +111,7 @@ if(isset($_POST['task']))
                 }
                 ?>
             </tbody>
-        </table>    
+        </table>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -109,6 +121,7 @@ if(isset($_POST['task']))
     <script src="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('#userTable').DataTable({
@@ -120,22 +133,43 @@ if(isset($_POST['task']))
         function Approve(userID) {
             alert(userID);
             $.ajax({
-                type:'post',
+                type: 'post',
                 data: {
                     task: "approve",
                     userID: userID
                 }
             });
         }
+
         function Reject(userID) {
-            alert(userID);
-            $.ajax({
-                type:'post',
-                data: {
-                    task: "reject",
-                    userID: userID
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, reject it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    alert(userID);
+                    $.ajax({
+                        type: 'post',
+                        data: {
+                            task: "reject",
+                            userID: userID
+                        }
+                    });
+                    Swal.fire(
+
+                        'Deleted!',
+                        'Approve request has been rejected.',
+                        'success'
+                    )
                 }
-            });
+            })
+
+
         }
     </script>
 </body>

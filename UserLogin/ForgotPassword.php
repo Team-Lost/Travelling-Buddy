@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
     //  $expires = date("U")+ 1800;
-    $expires = time() + 1800;
+    $expires = time() + 1800;//1 day
     $url = "http://localhost/Travelling-Buddy/UserLogin/ResetPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
     //echo $url;
     $userExists = false;
@@ -36,8 +36,7 @@ if (isset($_POST['submit'])) {
     //echo $query;
     $db->updateTable($query);    
     $receipient = $checkMail;
-    $subject = "Reset password instructions";
-    $headers =  "Travelling Buddy <travellingbuddy2908@gmail.com>"."<br>.";
+    $subject = "Reset password instructions";    
     date_default_timezone_set(date_default_timezone_get());
     $date = date('m/d/Y h:i:s a', time());
     if(!$userExists)
@@ -55,11 +54,13 @@ if (isset($_POST['submit'])) {
                        <br>Someone(hopefully you) have requested to change your Travelling Buddy password.<br>
                        Please click the link below to change your password now.<br>
                        <br><a href = "'.$url.'">Reset my password</a><br>
-                       <br>This link will expire in 2 minutes.<br>
+                       <br>This link will expire in 1 day.If you have sent multiple requests,click on the link of most recent mail<br>
                        If you did not make the request,please disregard this email.<br>
                        <br>Sincerely,<br>
                        Travelling Buddy team
-                       </p><br><br>';        
+                       </p><br><br><br>
+                       <small>If you are having trouble clicking on the link,copy and paste the link below in your browser</small>
+                       <br><p>'.$url.'</p>';        
    }    
     //sendMail($receipient, $subject, $message);
     if(sendMail($receipient, $subject, $message))
