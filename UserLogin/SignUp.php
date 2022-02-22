@@ -97,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //define
         $fileName = $fileTmpDestination = $fileError = $fileType = $fileExt = $fileActualExt = $fileActualName = "";
         $fileSize = -1;
-
         $file = $_FILES['files'];
         // echo "<pre>";
         // echo "test";
@@ -272,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                 </section>
                 <div class="input-container">
-                    <label for="userName">User Name*</label>
+                    <label for="userName">Full Name*</label>
                     <input class="form-control mb-3" type="text" name="userName" id="userName" placeholder="Full Name(Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
                     <span class="error"><?php echo $nameError; ?></span>
                 </div>

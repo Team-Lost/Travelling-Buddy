@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['UserName'] = $uName;
                 $_SESSION['Mail'] = $uMail;
                 $_SESSION['Phone'] = $uPhn;
-                $_SESSION['Rank'] = $uRank;
+                $_SESSION['Rank'] = $uRank;               
                 header("Location: ../home.php");
                 die;
             } else {

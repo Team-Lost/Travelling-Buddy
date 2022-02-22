@@ -5,7 +5,7 @@
     <td><a href="mailto:"><?php echo $row['Mail']; ?><a></td>
     <td><?php echo $row['Gender']; ?></td>
     <td><?php echo $row['Rank']; ?></td>
-    <?php    
+    <?php
     $fileName = explode('.', $row['IDFile']);
     if (end($fileName) == "pdf") {
         $fileDestination = 'UserIdentification/Documents/' . $row['IDFile'];
@@ -13,10 +13,6 @@
         $fileDestination = 'UserIdentification/Images/' . $row['IDFile'];
     }
     ?>
-    <td><a href="<?php echo $fileDestination; ?>"><?php echo $row['IDFile']; ?></a></td>   
-    <td><?php echo $row['creationDate']; ?></td>   
-    <td>
-        <a href="<?php echo "javascript:Approve($row[UserID])";?>">Approve</a>
-         <a href="<?php echo "javascript:Reject($row[UserID])";?>">Reject</a>
-    </td>
+    <td><a href="<?php echo $fileDestination; ?>"><?php echo $row['IDFile']; ?></a></td>
+    <td><?php echo $row['creationDate']; ?></td>
 </tr>

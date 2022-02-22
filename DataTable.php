@@ -69,21 +69,17 @@ if (isset($_POST['task'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-
-    </style>
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.1/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">   
 
 </head>
 
 <body>
-    <?php include "navbar_user.php" ?>
-    <div class="container mb-3 mt-3">
-        <table class="table table-striped table-bordered" style="width: 100%" id="userTable">
+    <?php include "navbar_user.php" ?>    
+    <div class="container-fluid justify-content-center">
+        <table class="table table-striped table-bordered" id="userTable">
             <thead>
                 <th>UserID</th>
                 <th>UserName</th>
@@ -98,7 +94,7 @@ if (isset($_POST['task'])) {
             <tbody>
                 <?php
                 $db = new database();
-                $query = "SELECT * from User";
+                $query = "SELECT * from User where not (Rank = 'ADMIN' or Rank = 'MODERATOR')";
                 $res = mysqli_query($db->connect(), $query);
                 if (mysqli_num_rows($res) > 0) {
 
@@ -109,16 +105,16 @@ if (isset($_POST['task'])) {
                 ?>
             </tbody>
         </table>
-
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
+ 
+   
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             $('#userTable').DataTable({
@@ -169,6 +165,7 @@ if (isset($_POST['task'])) {
 
         }
     </script>
+
 </body>
 
 </html>
