@@ -8,13 +8,13 @@
 }
 
 .bottom-input {
-    background-color: transparent;
+    background-color: white;
     border-top: 0px solid red;
     border-left: 0px solid red;
     border-right: 0px solid red;
     border-bottom: 2px solid #2FD6F9;
     font-size: 14pt;
-    color: white;
+    color: black;
 }
 
 .bottom-input:focus {

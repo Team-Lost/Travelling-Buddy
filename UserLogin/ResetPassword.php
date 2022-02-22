@@ -42,11 +42,13 @@
             return true;
         }
     }
-
     include "../Model/Database.php";
     $passError = "";
     $selector = $_GET["selector"];
     $validator = $_GET['validator'];
+    $currentDate = time();
+    $db = new database();
+    
     if (empty($selector) || empty($validator)) {
         echo "Could not validate your request1!";
     } else if (!(ctype_xdigit($selector) && ctype_xdigit($validator))) {
@@ -63,13 +65,15 @@
                 $passError = "Please fill out both the fields!";
             } else if ($password1 != $password2) {
                 $passError = "Passwords don't match!";
-            } else if (isValid($token, $validator)) {
+            } else if (isValid($selector, $validator)) {
                 $passError = "Token expired! Please resubmit!";
             } else {
+                $query = "Select * from passwordReset where ResetSelector = '$selector' && ResetExpire >= '$currentDate'";
+                $res = mysqli_query($db->connect(), $query);
+                $row = mysqli_fetch_assoc($res);
                 $newPassword = password_hash($password1, PASSWORD_DEFAULT);
                 $query = "Update User Set UserPassword = '$newPassword' where Mail = '$row[ResetMail]'";
                 $db->updateTable($query);
-                echo $query . "<br>";
                 $query = "Delete from PasswordReset where ResetMail = '$row[ResetMail]'";
                 $db->updateTable($query);
             }

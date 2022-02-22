@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
     if ($check == 1) {
-        $mailError = "Phone number already exists!";
+        $phnError = "Phone number already exists!";
         $error = true;
     }
 
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
     //---check password---//
     if (strlen($_POST['password1']) < 8) {
-        echo strlen($_POST['password1']);
+        //echo strlen($_POST['password1']);
         $pass1Error = "Password must be atleast 8 characters long!";
         $error = true;
     }
@@ -142,13 +142,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         move_uploaded_file($fileTmpDestination, $fileDestination);
         $query = "INSERT INTO USER(UserName, Mail, Phone, Gender, UserPassword, IDFile) VALUES ('$userName', '$mail', '$phoneNumber','$_POST[gender]','$password','$fileActualName')";
         //echo $query;
-        echo "data inserted succesfully";
+        //echo "data inserted succesfully";
         $db->updateTable($query);
         $userName = "";
         $phoneNumber = "";
         $mail = "";
-        $success = "Your account has been registered.Once the admin approves your account,a mail will be sent to confirm your account activation!";
+        //$success = "Your account has been registered. Once the admin approves your account, a mail will be sent to confirm your account activation!";
         //die;
+        $success = "Registered, Wait for admin approval.";
     }
 }
 ?>
@@ -273,49 +274,46 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <div class="input-container">
                     <label for="userName">Full Name*</label>
                     <input class="form-control mb-3" type="text" name="userName" id="userName" placeholder="Full Name(Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
-                    <span class="error"><?php echo $nameError; ?></span>
+                    <span class="text-danger error"><?php echo $nameError; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="phoneNumber" class="mt-3">Phone Number*</label>
                     <input class="form-control mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number(Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
-                    <span class="error"> <?php echo $phnError; ?></span>
+                    <span class="text-danger error"> <?php echo $phnError; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="mail" class="mt-3">Mail*</label>
                     <input class="form-control mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
-                    <span class="error"><?php echo $mailError; ?></span>
+                    <span class="text-danger error"><?php echo $mailError; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="gender" class="mt-3">Gender*</label>
                     <input type="radio" name="gender" value="male" required>Male
                     <input type="radio" name="gender" value="female">Female
                     <input type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
-                    <span class="error"><?php echo $genderError; ?></span>
+                    <span class="text-danger error"><?php echo $genderError; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="password1" class="mt-3">Password*</label>
                     <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                    <span class="error"><?php echo $pass1Error; ?></span>
+                    <span class="text-danger error"><?php echo $pass1Error; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="password2" class="mt-3">Confirm Password*</label>
                     <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                    <span class="error"><?php echo $pass2Error; ?></span>
+                    <span class="text-danger error"><?php echo $pass2Error; ?></span>
                 </div>
                 <div class="input-container">
                     <label for="files" class="mt-3">Files*</label>
                     <input type="file" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
-                    <span class="error"><?php echo $filesError; ?></span>
+                    <span class="text-danger error"><?php echo $filesError; ?></span>
                 </div>
                 <div class="input-container">
                     <input class="form-control mt-3" type="submit" name="submit">
+                    <p class="text-center"><?php echo $success; ?></p>
                 </div>
-                <div>
-                    <label><?php echo $success; ?></label>
-                </div>
+            </form>
         </div>
-        </form>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

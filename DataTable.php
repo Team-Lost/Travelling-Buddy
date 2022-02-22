@@ -56,7 +56,7 @@ if (isset($_POST['task'])) {
         $db->updateTable($query);
     }
     if (sendMail($receipient, $subject, $message)) {
-        echo "Email Sent!";
+        //echo "Email Sent!";
     }
 }
 
@@ -124,7 +124,6 @@ if (isset($_POST['task'])) {
         });
 
         function Approve(userID) {
-            alert(userID);
             $.ajax({
                 type: 'post',
                 data: {
@@ -132,6 +131,7 @@ if (isset($_POST['task'])) {
                     userID: userID
                 }
             });
+            
         }
 
         function Reject(userID) {
@@ -145,7 +145,6 @@ if (isset($_POST['task'])) {
                 confirmButtonText: 'Yes, reject it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    alert(userID);
                     $.ajax({
                         type: 'post',
                         data: {
@@ -161,7 +160,6 @@ if (isset($_POST['task'])) {
                     )
                 }
             })
-
 
         }
     </script>

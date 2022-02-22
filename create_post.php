@@ -57,12 +57,12 @@ include "Model/Database.php";
         $budget = $_POST['budget'];
         $location = "";
         foreach ($_POST['location'] as $key => $value) {
-            $location = $location . '$' . $value;
+            $location = $location . ' >> ' . $value;
         }
         $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
         $query = "INSERT INTO POSTS(posterID, location, budget, description, startingTime, endingTime) VALUES" .
             "($currID, '$location', $budget, '$description', '$startTime', '$endTime')";
-        echo $query . '<br>';
+        //echo $query . '<br>';
         mysqli_query($conn, $query);
     }
 
