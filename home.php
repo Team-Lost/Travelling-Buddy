@@ -35,7 +35,7 @@ if (!isset($_SESSION['UserID'])) {
             include "Model/post_view.php";
         }
     }
-    include "Assets/api/post_calls.php"
+    include "Assets/api/post_calls.php";
     ?>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>

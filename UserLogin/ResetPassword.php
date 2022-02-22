@@ -5,10 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/cee0f4dddc.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="..\Assets\css\home.css">
+    <style>
+        .full-body {
+            height: 100vh;
+            width: 100vh;
+        }
+    </style>
+
 </head>
 
-<body>
+<body class="body-ssp-fb">
     <?php
 
     function isValid($selector, $validator)
@@ -21,7 +34,7 @@
             if ($row = mysqli_fetch_assoc($res)) {
                 $tokenBin = hex2bin($validator);
                 $tokenCheck = password_verify($tokenBin, $row["ResetToken"]);
-                if(!$tokenCheck) {
+                if (!$tokenCheck) {
                     return false;
                 }
             }
@@ -63,14 +76,27 @@
         }
     }
     ?>
-    <form action="#" method="post">
-        <input type="hidden" name="selector" value="<?php echo $selector ?>">
-        <input type="hidden" name="validator" value="<?php echo $validator ?>">
-        <input type="password" name="password1" placeholder="Enter a new password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-        <input type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-        <input type="submit" name="submit" value="Reset Password">
-        <span class="error">* <?php echo $passError; ?></span>
-    </form>
+    <div class="container container-fitter" style="margin-top: 30vh">
+        <form action="#" method="post">
+            <div class="form-group">
+                <h3 class="text-center p-2">Enter your new password!</p>
+                <input class="form-control m-1" type="hidden" name="selector" value="<?php echo $selector ?>">
+                <input class="form-control m-1" type="hidden" name="validator" value="<?php echo $validator ?>">
+                <input class="form-control m-1" type="password" name="password1" placeholder="Enter a new password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                <input class="form-control m-1" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                <input class="form-control btn btn-info margin-t15" type="submit" name="submit" value="Reset Password">
+                <p class="text-center"> <?php echo $passError; ?></p>
+            </div>
+        </form>
+    </div>
+    <script>
+        var container = document.getElementsByClassName("container-fitter");
+        if (screen.width > 820) {
+            container[0].setAttribute("style", "width: 40%; margin-top: 30vh;");
+        } else {
+            container[0].setAttribute("style", "width: 90%; margin-top: 30vh;");
+        }
+    </script>
 </body>
 
 </html>
