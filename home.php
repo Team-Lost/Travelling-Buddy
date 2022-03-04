@@ -23,6 +23,17 @@ if (!isset($_SESSION['UserID'])) {
 <body class="body-ssp-fb">
     <?php
     include "navbar_user.php";
+    function getPath($UserID)
+    {
+        $path = "profile_picture.png";
+        if (file_exists("ProfilePictures/$UserID/")) {
+            $files = scandir("ProfilePictures/$UserID/", 1);
+            if (sizeof($files) > 2) {
+                $path = "ProfilePictures/$UserID/$files[0]";
+            }
+        }
+        return $path;
+    }
     ?>
 
     <div class="container-fluid">

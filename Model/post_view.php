@@ -26,7 +26,7 @@ if (is_null($userPost['voteCount'])) {
 <div class="container-fluid mt-p-10-5 container-fitter">
     <div class="row justify-content-center">
         <div class="col-1">
-            <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
+            <img src="<?php echo getPath($userPost['UserID']) ?>" class="img-fluid thumbnail rounded-circle img-fixed">
         </div>
         <div class="col-11 text-center-v">
             <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>"><p class="text-center-v"><?php echo $userPost['UserName'] ?></p></a>

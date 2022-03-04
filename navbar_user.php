@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0rem; align-self: start">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0rem; align-self: start; z-index: 1;">
     <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item active">

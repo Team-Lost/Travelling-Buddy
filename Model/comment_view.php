@@ -1,7 +1,7 @@
 <div class="container mt-p-10-5 bg-white container-fitter">
     <div class="row">
         <div class="col-1">
-            <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
+            <img src="<?php echo getPath($row['userID']) ?>" class="img-fluid thumbnail rounded-circle img-fixed">
         </div>
         <div class="col-11 p-1">
             <p><?php echo $row['UserName'] ?></p>

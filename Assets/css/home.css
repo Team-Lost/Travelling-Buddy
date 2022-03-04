@@ -71,6 +71,8 @@
     position: relative;
 }
 
+
+
 .margin-b20 {
     margin-bottom: 20px;
 }
@@ -85,4 +87,27 @@
 
 .bg-inherit {
     background-color: inherit;
+}
+
+.btn-parent {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.btn-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+
+.btn-parent:hover .btn-img {
+    display: block;
 }

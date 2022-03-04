@@ -39,6 +39,19 @@ if (!isset($_SESSION['UserID'])) {
         echo "<p>NONE User ID</p>";
         die;
     }
+
+    function getPath($UserID)
+    {
+        $path = "profile_picture.png";
+        if (file_exists("ProfilePictures/$UserID/")) {
+            $files = scandir("ProfilePictures/$UserID/", 1);
+            if (sizeof($files) > 2) {
+                $path = "ProfilePictures/$UserID/$files[0]";
+            }
+        }
+        return $path;
+    }
+
     ?>
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -47,8 +60,10 @@ if (!isset($_SESSION['UserID'])) {
 
                 <div class="container container-fitter mt-p-10-5">
                     <div class="row justify-content-md-center my-4">
-                        <div class="col-4 px-3">
-                            <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
+                        <div class="col-4 px-3 btn-parent">
+                            <img src="<?php echo getPath($linkID) ?>" class="img-fluid thumbnail rounded-circle" style="width:auto, height:auto">
+                            <button type="button" class="btn btn-secondary btn-img" onclick="document.getElementById('file').click()">Change Photo</button>
+                            <input type="file" name="file" id="file" accept="image/png,image/jpeg,image/jpg" onchange="uploadImage()" style="display:none">
                         </div>
                         <div class="col-8">
                             <p class="fw-bold h3 text-left"><?php echo $user['UserName'] ?></p>
@@ -90,6 +105,46 @@ if (!isset($_SESSION['UserID'])) {
             </div>
         </div>
     </div>
+    <script src="Assets/scripts/post_function.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function uploadImage() {
+            var files = document.getElementById("file").files;
+
+            if (files.length > 0) {
+
+                var formData = new FormData();
+                formData.append("file", files[0]);
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "image_uploader.php", true);
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                        if (response == 1) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Uploaded!',
+                                text: 'Picture uploaded successfully!'
+                            });
+                        } else {
+                            showError("Error encountered during upload!");
+                        }
+                    }
+                };
+                xhttp.send(formData);
+            } else {
+                showError("Please select a file");
+            }
+        }
+
+        function showError(errorText) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorText
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -29,6 +29,17 @@ if (!isset($_SESSION['UserID'])) {
         return;
     }
     include "navbar_user.php";
+    function getPath($UserID)
+    {
+        $path = "profile_picture.png";
+        if (file_exists("ProfilePictures/$UserID/")) {
+            $files = scandir("ProfilePictures/$UserID/", 1);
+            if (sizeof($files) > 2) {
+                $path = "ProfilePictures/$UserID/$files[0]";
+            }
+        }
+        return $path;
+    }
     ?>
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -76,6 +87,7 @@ if (!isset($_SESSION['UserID'])) {
                 </div>
             </div>
         </div>
+
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
         </script>
