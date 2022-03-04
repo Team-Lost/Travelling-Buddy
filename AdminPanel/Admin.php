@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (isset($_SESSION['Rank'])) {
+    if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
+        echo "<h1>404 Error </h1>
+            <h4>Page not found1!</h4>";
+        return;
+    }
+} else {
+    echo "<h1>404 Error</h1>
+            <h4>Page not found2!</h4>";
+    return;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +21,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Bootstrap 5-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+
+  <!--Bootstrap 5-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!--Font awesome-->
@@ -16,13 +33,13 @@
 
     <!--Datatable-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Assets/css/dataTable.css">
+    <link rel="stylesheet" href="/Assets/css/dataTable.css">
 
     <!--Custom CSS-->
-    <link rel="stylesheet" href="Assets/css/adminDeclaration.css">
-    <link rel="stylesheet" href="Assets/css/adminLayout.css">
-    <link rel="stylesheet" href="Assets/css/adminStyle.css">
-    <link rel="stylesheet" href="Assets/css/adminResponsive.css">
+    <link rel="stylesheet" href="../Assets/css/adminDeclaration.css">
+    <link rel="stylesheet" href="../Assets/css/adminLayout.css">
+    <link rel="stylesheet" href="../Assets/css/adminStyle.css">
+    <link rel="stylesheet" href="../Assets/css/adminResponsive.css">
 
     <title>Admin Panel Using Php</title>
 </head>
@@ -35,7 +52,7 @@
             <header class="header  navbar navbar-expand-sm expand-header">
                 <div class="header-left d-flex">
                     <div class="logo">
-                        DevIngine
+                        Travelling Buddy
                     </div>
                     <a href="#" class="sidebarCollapse" data-placement="bottom" id="toogleSidebar">
                         <span class="fas fa-bars"></span>
@@ -45,7 +62,7 @@
 
                     <li class="nav-item dropdown user-profile-dropdown">
                         <a href="" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
-                            <img src="Images/2.png" alt="" class="icon">
+                            <img src="../Images/2.png" alt="" class="icon">
                         </a>
                     </li>
 
@@ -63,10 +80,10 @@
                             <a href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-users"></i>All Users</a>
+                            <a href="DataTable.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-user-check"></i>Pending Users</a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -356,7 +373,7 @@
                                     <p class="admin-ac-title">All Admin</p>
                                     <ul class="admin-ul">
                                         <li class="admin-li">
-                                            <img src="Images/2.png" alt="" class="admin-image">
+                                            <img src="../Images/2.png" alt="" class="admin-image">
                                             <div class="admin-ac-details">
                                                 <div>
                                                     <a href="#" class="admin-name">Helal Uddin</a>
@@ -368,7 +385,7 @@
                                         </li>
 
                                         <li class="admin-li">
-                                            <img src="Images/2.png" alt="" class="admin-image">
+                                            <img src="../Images/2.png" alt="" class="admin-image">
                                             <div class="admin-ac-details">
                                                 <div>
                                                     <a href="" class="admin-name">Rocky Islam</a>
@@ -379,7 +396,7 @@
                                             </div>
                                         </li>
                                         <li class="admin-li">
-                                            <img src="Images/2.png" alt="" class="admin-image">
+                                            <img src="../Images/2.png" alt="" class="admin-image">
                                             <div class="admin-ac-details">
                                                 <div>
                                                     <a href="" class="admin-name">Jewel Khan</a>
@@ -390,7 +407,7 @@
                                             </div>
                                         </li>
                                         <li class="admin-li">
-                                            <img src="Images/2.png" alt="" class="admin-image">
+                                            <img src="../Images/2.png" alt="" class="admin-image">
                                             <div class="admin-ac-details">
                                                 <div>
                                                     <a href="" class="admin-name">Afjal Sohel</a>
@@ -401,7 +418,7 @@
                                             </div>
                                         </li>
                                         <li class="admin-li">
-                                            <img src="Images/2.png" alt="" class="admin-image">
+                                            <img src="../Images/2.png" alt="" class="admin-image">
                                             <div class="admin-ac-details">
                                                 <div>
                                                     <a href="" class="admin-name">Devingine</a>
@@ -644,12 +661,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-    <script src="Assets/scripts/main.js"></script>
+    <script src="../Assets/scripts/main.js"></script>
     <!--Chart-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.33.2/apexcharts.min.js"
         integrity="sha512-iBEfFld2z1SAXCPmgoA40VQtqGP0cEJw4fy+t3ARW30uEfzf8hyrmm4mc5qdth3wZRPdKTv/auk5WH52klRVDg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="Assets/scripts/chart.js"></script>
+    <script src="../Assets/scripts/chart.js"></script>
     <!--Initialize Chart-->
     <script>
         const myChart = new Chart(

@@ -257,6 +257,9 @@ p.activaty-text {
     border-radius: 50%;
 } 
 
-.data-table-section a{
-    text-decoration: none;
+
+.data-table-section #userTable th{
+    color: white;
+    background-color: #4b86b4 ;
+    text-align: center;
 }

@@ -11,8 +11,8 @@ if (isset($_SESSION['Rank'])) {
             <h4>Page not found2!</h4>";
     return;
 }
-include "Model/Database.php";
-require 'PHPMailer-master/mail.php';
+include "../Model/Database.php";
+require '../PHPMailer-master/mail.php';
 
 
 ?>
