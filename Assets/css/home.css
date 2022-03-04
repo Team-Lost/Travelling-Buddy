@@ -27,11 +27,16 @@
 }
 
 .container-fitter {
-    width: 40%;
+    width: 100%;
     justify-content: center;
-    margin: auto;
     background-color: white;
     border-radius: 20px;
+}
+
+.sticky-pane {
+    position: sticky;
+    top: 3.5rem;
+    align-self: start;
 }
 
 .text-center-v {

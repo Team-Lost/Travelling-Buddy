@@ -1,4 +1,4 @@
-<div class="container mt-p-10-5 bg-white container-fitter b3d-s">
+<div class="container mt-p-10-5 bg-white container-fitter">
     <div class="row">
         <div class="col-1">
             <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">

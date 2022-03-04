@@ -23,13 +23,13 @@ if (is_null($userPost['voteCount'])) {
     $userPost['voteCount'] = 0;
 }
 ?>
-<div class="container mt-p-10-5 container-fitter b3d-s">
+<div class="container-fluid mt-p-10-5 container-fitter">
     <div class="row justify-content-center">
         <div class="col-1">
             <img src="profile_picture.jpg" class="img-fluid thumbnail rounded-circle img-fixed">
         </div>
         <div class="col-11 text-center-v">
-            <p class="text-center-v"><?php echo $userPost['UserName'] ?></p>
+            <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>"><p class="text-center-v"><?php echo $userPost['UserName'] ?></p></a>
         </div>
     </div>
     <div class="row justify-content-center my-2">

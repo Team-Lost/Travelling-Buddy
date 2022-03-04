@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['UserID'])) {
     header("Location:UserLogin/Login.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,50 +29,57 @@ if (!isset($_SESSION['UserID'])) {
         return;
     }
     include "navbar_user.php";
-    $postID = $_GET['postID'];
-    $currID = $_SESSION['UserID'];
-    $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
-    $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
-        " FROM user" .
-        " RIGHT JOIN posts ON user.UserID = posts.posterID" .
-        " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID" .
-        " WHERE posts.postID = $postID";
-    $res = mysqli_query($conn, $query);
-    if (mysqli_num_rows($res) > 0) {
-        if ($userPost = mysqli_fetch_assoc($res)) {
-            include "Model/post_view.php";
-        }
-    }
-    include "Assets/api/post_calls.php";
-
     ?>
-    <div class="container mt-p-10-5 container-fitter">
-        <form action="#" method="post" id="inp_form">
-            <textarea id="comment" placeholder="Write your comment here..." name="comment" class="form-control bottom-input margin-1-2" rows="3"></textarea>
-            <button type="submit" name="btn-comment" id="btn-comment" class="btn btn-info btn-h40 form-control margin-1-2">Comment</button>
-        </form>
-    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <?php
+                $postID = $_GET['postID'];
+                $currID = $_SESSION['UserID'];
+                $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
+                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+                    " FROM user" .
+                    " RIGHT JOIN posts ON user.UserID = posts.posterID" .
+                    " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID" .
+                    " WHERE posts.postID = $postID";
+                $res = mysqli_query($conn, $query);
+                if (mysqli_num_rows($res) > 0) {
+                    if ($userPost = mysqli_fetch_assoc($res)) {
+                        include "Model/post_view.php";
+                    }
+                }
+                include "Assets/api/post_calls.php";
 
-    <div id="div-comment" class="container-fluid mt-p-10-5 bg-inherit">
-        <?php
-        $query = "SELECT user.UserName, comments.commentID, comments.postID, comments.userID, comments.comment, comments.time, comments.replyID
-            FROM comments
-            JOIN user
-            ON comments.userID = user.UserID
-            WHERE comments.postID = $postID";
-        $res = mysqli_query($conn, $query);
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) {
-                include "Model/comment_view.php";
-            }
-        }
+                ?>
+                <div class="container mt-p-10-5 container-fitter">
+                    <form action="#" method="post" id="inp_form">
+                        <textarea id="comment" placeholder="Write your comment here..." name="comment" class="form-control bottom-input margin-1-2" rows="3"></textarea>
+                        <button type="submit" name="btn-comment" id="btn-comment" class="btn btn-info btn-h40 form-control margin-1-2">Comment</button>
+                    </form>
+                </div>
 
-        ?>
-    </div>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
-    <script src="Assets/scripts/post_function.js"></script>
+                <div id="div-comment" class="container-fluid p-0">
+                    <?php
+                    $query = "SELECT user.UserName, comments.commentID, comments.postID, comments.userID, comments.comment, comments.time, comments.replyID
+                        FROM comments
+                        JOIN user
+                        ON comments.userID = user.UserID
+                        WHERE comments.postID = $postID";
+                    $res = mysqli_query($conn, $query);
+                    if (mysqli_num_rows($res) > 0) {
+                        while ($row = mysqli_fetch_assoc($res)) {
+                            include "Model/comment_view.php";
+                        }
+                    }
+
+                    ?>
+                </div>
+            </div>
+        </div>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+        </script>
+        <script src="Assets/scripts/post_function.js"></script>
 
 </body>
 
