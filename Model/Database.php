@@ -32,6 +32,15 @@
                 ResetExpire varchar(255) 
             )";
             mysqli_query($this->connect(), $table);
+            $table = "create table if not exists Contact
+            (
+                contactID int AUTO_INCREMENT PRIMARY KEY,
+                contactName varchar(255) NOT NULL,
+                contactMail varchar(255) NOT NULL,
+                contactSubject varchar(255) NOT NULL,
+                contactMessage varchar(255) NOT NULL 
+            )";
+            mysqli_query($this->connect(), $table);
         }          
         function connect()
         {           

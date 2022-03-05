@@ -122,10 +122,10 @@ if (isset($_POST['task'])) {
                 <nav class="animated bounceInDown">
                     <ul id="sidebar">
                         <li class="active">
-                            <a href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
+                            <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="DataTable.php"><i class="fa-solid fa-users"></i>All Users</a>
+                            <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
                             <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users</a>

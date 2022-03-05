@@ -80,7 +80,7 @@ if (isset($_SESSION['Rank'])) {
                             <a href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="DataTable.php"><i class="fa-solid fa-users"></i>All Users</a>
+                            <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
                             <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users</a>
@@ -95,7 +95,7 @@ if (isset($_SESSION['Rank'])) {
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-envelope-open"></i>Email</a>
+                            <a href="https://mail.google.com/mail/u/2/#inbox"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports</a>
@@ -660,7 +660,7 @@ if (isset($_SESSION['Rank'])) {
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
+    <!--Custom JS-->
     <script src="../Assets/scripts/main.js"></script>
     <!--Chart-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.33.2/apexcharts.min.js"
