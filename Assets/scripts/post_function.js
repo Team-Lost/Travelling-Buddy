@@ -19,7 +19,6 @@ function reportPost(postID) {
 }
 
 function votePost(taskName, postID) {
-    alert(taskName);
     var iconUpvote = document.getElementById('upvote-' + postID);
     var iconDownvote = document.getElementById('downvote-' + postID);
     var vote = iconUpvote.getAttribute('vote');
@@ -71,4 +70,9 @@ function votePost(taskName, postID) {
             vote: vote
         }
     });
+}
+
+function editPost(postID) {
+    localStorage.setItem("postID", postID);
+    location.replace("edit_post.php?id=" + postID);
 }
