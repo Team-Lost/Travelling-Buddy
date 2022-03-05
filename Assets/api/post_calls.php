@@ -21,7 +21,15 @@ if (isset($_POST['task'])) {
         $reason = $_POST['reason'];
         $details = $_POST['details'];
         $query = "INSERT INTO REPORTS(reportType, reportedID, reportedBy, reason, details) VALUES('POST', $postID, $currID, '$reason', '$details')";
-        echo $query;
+        mysqli_query($conn, $query);
+    }
+    if ($_POST['task'] == 'joinPost') {
+        $postID = $_POST['postID'];
+        $todo = $_POST['todo'];
+        $query = "INSERT INTO CHATS VALUES($postID, $currID, 'PENDING')";
+        if ($todo == 'REMOVE') {
+            $query = "DELETE FROM CHATS WHERE userID = $currID";
+        }
         mysqli_query($conn, $query);
     }
 }

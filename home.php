@@ -59,7 +59,7 @@ if (!isset($_SESSION['UserID'])) {
                     </form>
                 </div>
             </div>
-            <div class="col-5" id="post-column">
+            <div class="col-6" id="post-column">
                 <?php
                 $currID = $_SESSION['UserID'];
                 $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
@@ -77,6 +77,11 @@ if (!isset($_SESSION['UserID'])) {
 
                 ?>
             </div>
+            <div class="col-3" id="join-column">
+
+                <!--INCLUDE TEMPLATE HERE -->
+
+            </div>
         </div>
     </div>
     <?php
@@ -86,6 +91,20 @@ if (!isset($_SESSION['UserID'])) {
     </script>
     <script src="Assets/scripts/post_function.js"></script>
     <script>
+        function loadRequests() {
+            $.ajax({
+                type: 'post',
+                url: "Assets/api/load_requests.php",
+                success: function(data) {
+                    document.getElementById("join-column").innerHTML = data;
+                }
+            })
+        }
+
+        $(document).ready(function() {
+            loadRequests();
+        });
+
         var btnFilter = document.getElementById("filter");
         btnFilter.addEventListener("click", reloadPosts)
 
@@ -138,6 +157,40 @@ if (!isset($_SESSION['UserID'])) {
             });
 
 
+        }
+
+        function acceptUser(userID, postID) {
+            $.ajax({
+                type: 'POST',
+                url: "Assets/api/manage_requests.php",
+                data: {
+                    task: 'ACCEPT',
+                    userID: userID,
+                    postID: postID
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        loadRequests();
+                    }
+                }
+            })
+        }
+
+        function rejectUser(userID, postID) {
+            $.ajax({
+                type: 'POST',
+                url: "Assets/api/manage_requests.php",
+                data: {
+                    task: 'REJECT',
+                    userID: userID,
+                    postID: postID
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        loadRequests();
+                    }
+                }
+            })
         }
     </script>
 
