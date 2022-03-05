@@ -1,10 +1,8 @@
 <?php
-if (isset($_POST['ajax'])) {
-    echo "$here";
+if (isset($_POST['task'])) {
     if ($_POST['task'] == 'join') {
         $postID = $_POST['postID'];
         $query = "INSERT INTO CHATS VALUES($postID, $currID)";
-        echo $query;
         mysqli_query($conn, $query);
     }
     if ($_POST['task'] == 'updateVote') {
@@ -17,6 +15,14 @@ if (isset($_POST['ajax'])) {
             $query = "INSERT INTO VOTES VALUES($postID, $currID, $vote)";
             mysqli_query($conn, $query);
         }
+    }
+    if ($_POST['task'] == 'reportPost') {
+        $postID = $_POST['postID'];
+        $reason = $_POST['reason'];
+        $details = $_POST['details'];
+        $query = "INSERT INTO REPORTS(reportType, reportedID, reportedBy, reason, details) VALUES('POST', $postID, $currID, '$reason', '$details')";
+        echo $query;
+        mysqli_query($conn, $query);
     }
 }
 if (isset($_POST['btn-comment'])) {

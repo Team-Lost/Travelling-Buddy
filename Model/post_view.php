@@ -29,7 +29,9 @@ if (is_null($userPost['voteCount'])) {
             <img src="<?php echo getPath($userPost['UserID']) ?>" class="img-fluid thumbnail rounded-circle img-fixed">
         </div>
         <div class="col-11 text-center-v">
-            <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>"><p class="text-center-v"><?php echo $userPost['UserName'] ?></p></a>
+            <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>">
+                <p class="text-center-v"><?php echo $userPost['UserName'] ?></p>
+            </a>
         </div>
     </div>
     <div class="row justify-content-center my-2">
@@ -60,26 +62,54 @@ if (is_null($userPost['voteCount'])) {
         <div class="col-1 text-center text-center-v">
             <p id="count-<?php echo $userPost['postID'] ?>" class="text-center-v"><?php echo $userPost['voteCount'] ?></p>
         </div>
-        <div class="col-2 text-center text-center-v">
+        <div class="col-3 text-center text-center-v">
             <div class="btn-group" role="group">
-                <button id="btn-upvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info btn-h40">
+                <button onclick="votePost('upvote', <?php echo $userPost['postID'] ?>)" type="button" class="btn btn-info btn-h40">
                     <i id="upvote-<?php echo $userPost['postID'] ?>" vote="<?php echo $voteStatus ?>" class="<?php echo $upvoteIconClass ?>"></i>
                 </button>
-                <button id="btn-downvote" post-id="<?php echo $userPost['postID'] ?>" type="button" class="btn btn-info btn-h40">
+                <button onclick="votePost('downvote', <?php echo $userPost['postID'] ?>)" type="button" class="btn btn-info btn-h40">
                     <i id="downvote-<?php echo $userPost['postID'] ?>" vote="<?php echo $voteStatus ?>" class="<?php echo $downvoteIconClass ?>"></i>
                 </button>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-6">
             <div class="btn-group" role="group">
                 <button id="btn-join" type="button" post-id="<?php echo $userPost['postID'] ?>" class="btn btn-info btn-h40">
                     <i class="fa-regular fa-square-check fa-xl"></i>
                     <span class="mx-1">Join</span></button>
-                <button type="button" class="btn btn-info btn-h40" onclick="javascript:loadPost(<?php echo $userPost['postID'] ?>)">
+                <button type="button" class="btn btn-info btn-h40" onclick="javascript:reportPost(<?php echo $userPost['postID'] ?>)">
                     <i class="fa-regular fa-comment-dots fa-xl"></i>
                     <span class="mx-1">Comment</span></button>
             </div>
         </div>
-        <div class="col-1"></div>
+        <div class="col-2">
+            <button type="button" class="btn btn-info btn-h40" data-bs-toggle="modal" data-bs-target="#Modal<?php echo $userPost['postID'] ?>">Report</button>
+            <div class="modal fade" id="Modal<?php echo $userPost['postID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Report</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="select<?php echo $userPost['postID'] ?>">Please select a problem:</label>
+                            <select class="form-select form-select-sm my-2" aria-label=".form-select-sm example" id="select<?php echo $userPost['postID'] ?>">
+                                <option selected>False Information</option>
+                                <option value="1">Harrassment</option>
+                                <option value="2">Spam</option>
+                                <option value="3">Hate Speech</option>
+                                <option value="3">Something Else</option>
+                            </select>
+                            <label for="details<?php echo $userPost['postID'] ?>">Details:</label>
+                            <textarea id="details<?php echo $userPost['postID'] ?>" name="details" class="form-control bottom-input" rows="5" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="reportPost(<?php echo $userPost['postID'] ?>)">Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
