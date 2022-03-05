@@ -22,6 +22,19 @@ if ($voteStatus == -1) {
 if (is_null($userPost['voteCount'])) {
     $userPost['voteCount'] = 0;
 }
+
+$joinQuery = "SELECT * FROM CHATS WHERE postID = " . $userPost['postID'] . " AND userID = $currID";
+$joinText = "Join";
+$res = mysqli_query($conn, $joinQuery);
+if (mysqli_num_rows($res) > 0) {
+    $row = mysqli_fetch_assoc($res);
+    if ($row['status'] == 'PENDING') {
+        $joinText = 'Cancel';
+    } else {
+        $joinText = 'Leave';
+    }
+}
+
 ?>
 <div class="container-fluid mt-p-10-5 container-fitter">
     <div class="row justify-content-center">
@@ -74,22 +87,22 @@ if (is_null($userPost['voteCount'])) {
         </div>
         <div class="col-6">
             <div class="btn-group" role="group">
-                <button id="btn-join" type="button" post-id="<?php echo $userPost['postID'] ?>" class="btn btn-info btn-h40">
+                <button id="join-<?php echo $userPost['postID'] ?>" onclick="joinPost(<?php echo $userPost['postID'] . ',\'' . $joinText . '\'' ?>)" class="btn btn-info btn-h40">
                     <i class="fa-regular fa-square-check fa-xl"></i>
-                    <span class="mx-1">Join</span></button>
-                <button type="button" class="btn btn-info btn-h40" onclick="javascript:reportPost(<?php echo $userPost['postID'] ?>)">
+                    <span class="mx-1"><?php echo $joinText ?></span></button>
+                <button type="button" class="btn btn-info btn-h40" onclick="javascript:loadPost(<?php echo $userPost['postID'] ?>)">
                     <i class="fa-regular fa-comment-dots fa-xl"></i>
                     <span class="mx-1">Comment</span></button>
             </div>
         </div>
         <div class="col-2">
             <?php
-                if($userPost['UserID'] != $currID) {
-                    include "Model/report_button.php";
-                } else {
-                    $editPostID = $userPost['postID'];
-                    echo "<button type='button' class='btn btn-info btn-h40' onclick='editPost($editPostID)'>Edit</button>";
-                }
+            if ($userPost['UserID'] != $currID) {
+                include "Model/report_button.php";
+            } else {
+                $editPostID = $userPost['postID'];
+                echo "<button type='button' class='btn btn-info btn-h40' onclick='editPost($editPostID)'>Edit</button>";
+            }
             ?>
         </div>
     </div>

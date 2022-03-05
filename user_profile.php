@@ -56,14 +56,16 @@ if (!isset($_SESSION['UserID'])) {
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-5">
-
-
                 <div class="container container-fitter mt-p-10-5">
                     <div class="row justify-content-md-center my-4">
                         <div class="col-4 px-3 btn-parent">
                             <img src="<?php echo getPath($linkID) ?>" class="img-fluid thumbnail rounded-circle" style="width:auto, height:auto">
-                            <button type="button" class="btn btn-secondary btn-img" onclick="document.getElementById('file').click()">Change Photo</button>
-                            <input type="file" name="file" id="file" accept="image/png,image/jpeg,image/jpg" onchange="uploadImage()" style="display:none">
+                            <?php
+                            if ($linkID == $_SESSION['UserID']) {
+                                echo '<button type="button" class="btn btn-secondary btn-img" onclick="document.getElementById("file").click()">Change Photo</button>';
+                                echo '<input type="file" name="file" id="file" accept="image/png,image/jpeg,image/jpg" onchange="uploadImage()" style="display:none">';
+                            }
+                            ?>
                         </div>
                         <div class="col-8">
                             <p class="fw-bold h3 text-left"><?php echo $user['UserName'] ?></p>

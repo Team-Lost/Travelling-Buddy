@@ -76,3 +76,25 @@ function editPost(postID) {
     localStorage.setItem("postID", postID);
     location.replace("edit_post.php?id=" + postID);
 }
+
+function joinPost(postID, status) {
+    var newStatus = '', todo = '';
+    if (status == 'Join') {
+        newStatus = 'Cancel';
+        todo = 'INSERT';
+    }
+    else {
+        newStatus = 'Join';
+        todo = 'REMOVE';
+    }
+    $.ajax({
+        type: 'post',
+        data: {
+            task: 'joinPost',
+            postID: postID,
+            todo: todo
+        }
+    });
+    document.getElementById("join-" + postID).getElementsByTagName("span")[0].innerText = newStatus;
+    document.getElementById("join-" + postID).setAttribute('onclick', "joinPost(" + postID + ",'" + newStatus + "')");
+}
