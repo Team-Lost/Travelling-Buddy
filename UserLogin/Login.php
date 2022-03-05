@@ -1,10 +1,28 @@
 <?php
 session_start();
+if (isset($_COOKIE['rememberUserCookie'])) {
+    $cookieID = $_COOKIE['rememberUserCookie'];
+    $db = new Database();
+    $query = "Select * from user where UserID = $cookieID limit 1";
+    $res = mysqli_query($db->connect(), $query);
+    if (mysqli_num_rows($res) > 0) {
+        if ($row = mysqli_fetch_assoc($res)) {
+            $_SESSION['UserName'] = $row['UserName'];
+            $_SESSION['UserID'] = $row['UserID'];
+            $_SESSION['Mail'] = $row['Mail'];
+            $_SESSION['Phone'] = $row['Phone'];
+            $_SESSION['Rank'] = $row['Rank'];
+        }
+    }
+    header("Location: ../home.php");
+}
+
 if (isset($_SESSION['UserID'])) {
     header("Location: ../index.php");
 }
 
 include "../Model/Database.php";
+/*--------If cookie is set-----*/
 
 $mailError = $passError = $loginError = "";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -40,12 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         if (password_verify($_POST['password'], $dbPassword)) {
             if ($uRank != 'PENDING') {
+                setcookie("rememberUserCookie", $uID, time() + 60);
                 echo "Login Successful";
                 $_SESSION['UserID'] = $uID;
                 $_SESSION['UserName'] = $uName;
                 $_SESSION['Mail'] = $uMail;
                 $_SESSION['Phone'] = $uPhn;
-                $_SESSION['Rank'] = $uRank;               
+                $_SESSION['Rank'] = $uRank;
                 header("Location: ../home.php");
                 die;
             } else {

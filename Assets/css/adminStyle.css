@@ -258,7 +258,7 @@ p.activaty-text {
 } 
 
 
-.data-table-section #userTable th{
+.data-table-section #userTable th, #userList th {
     color: white;
     background-color: #4b86b4 ;
     text-align: center;
