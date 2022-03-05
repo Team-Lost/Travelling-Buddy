@@ -191,7 +191,7 @@ p.w-value {
 
 /* =====================admin card style start================ */
 
-.admin-list {
+.show-table {
     padding: 10px;
     border-radius: 5px;
     background: var(--white-color);
@@ -258,7 +258,7 @@ p.activaty-text {
 } 
 
 
-.data-table-section #userTable th, #userList th {
+.data-table-section #userTable th, #userList th , #reportTable th{
     color: white;
     background-color: #4b86b4 ;
     text-align: center;

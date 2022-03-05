@@ -1,5 +1,4 @@
-<tr>
-    <td><?php echo $row['UserID']; ?></td>
+<tr>    
     <td><?php echo $row['UserName']; ?></td>
     <td><?php echo $row['Phone']; ?></td>
     <td><a href="mailto:"><?php echo $row['Mail']; ?><a></td>

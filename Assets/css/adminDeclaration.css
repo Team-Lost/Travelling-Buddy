@@ -9,7 +9,7 @@
 :root{
     --header-height: 3rem;
     /*-------Colors-------*/
-    --main-color: #c20d5a;
+    --main-color: #6128e7;
     --second-color: rgb(7,3,45);
     --main-gradient: linear-gradient(121deg, rgba(21, 76, 121, 1) 25% , rgb(3 146 215/42%)100% );
     --dark-bg: #383848;
@@ -74,7 +74,7 @@ a{
 
 a:hover{
     text-decoration: none;
-    color:var(--white-color);
+    color:blue;
 }
 ul,ol{
     list-style: none;
@@ -119,5 +119,5 @@ table.table{
     background: linear-gradient(121deg, rgb(26, 179, 195) 25% , rgb(25 97 206/ 95%) 100% );
 }
 .bg-clc{
-    background: linear-gradient(121deg, rgb(232, 202, 53) 25% , rgb(206 125 25/ 95%) 100% );
+    background: linear-gradient(121deg, rgb(232, 202, 53) 25% , rgb(206 125 25/ 95%) 100% );;
 }

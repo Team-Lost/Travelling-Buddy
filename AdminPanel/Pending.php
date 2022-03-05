@@ -13,52 +13,14 @@ if (isset($_SESSION['Rank'])) {
 }
 include "../Model/Database.php";
 require '../PHPMailer-master/mail.php';
-function getMail($userID)
-{
-    $db = new database();
-    $query = "Select Mail from User where UserID = $userID";
-    $res = mysqli_query($db->connect(), $query);
-    if (mysqli_num_rows($res) > 0) {
-        if ($row = mysqli_fetch_assoc($res)) {
-            return $row['Mail'];
-        }
+$db = new Database();
+$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
+$res = mysqli_query($db->connect(), $query);
+if (mysqli_num_rows($res) > 0) {
+    while ($row = mysqli_fetch_array($res)) {
+        $countPending = $row['count(Rank)'];
     }
-}
-if (isset($_POST['task'])) {
-    $db = new database();
-    if ($_POST['task'] == "approve") {
-        $url = "http://localhost/Travelling-Buddy/UserLogin/Login.php?";
-        $userID = $_POST['userID'];
-        $query = "Update User Set Rank = 'USER' where UserID = $userID";
-        $db->updateTable($query);
-        $receipient = getMail($userID);
-        $subject = "Approve Confirmation";
-        $message = '<h2>Welcome to Travelling Buddy!</h2><br><br>
-                       You are now part of the community of travellers.Here you can plan a trip with fellow travellers according to your ease and choice.Enjoy!<br><br>
-                       <a href = "' . $url . '">Get Started</a><br><br>
-                       Sincerely,<br>
-                       Travelling Buddy team
-                       </p><br><br>                       
-                       <small>If you are having trouble clicking on the link,copy and paste the link below in your browser</small>
-                       <br><p>' . $url . '</p>';
-    }
-    //reject dile ki hoy?
-    if ($_POST['task'] == "reject") {
-        $userID = $_POST['userID'];
-        $receipient = getMail($userID);
-        $subject = "Rejected Account";
-        $message = '<p>Hello there,<br><br>
-                       Your account was not approved.Please provide valid informations.<br><br>
-                       Sincerely,<br>
-                       Travelling Buddy team
-                       </p><br><br>';
-        $query = "Delete from User where UserID = $userID";
-        $db->updateTable($query);
-    }
-    if (sendMail($receipient, $subject, $message)) {
-        //echo "Email Sent!";
-    }
-}
+};
 
 ?>
 <!DOCTYPE html>
@@ -85,7 +47,7 @@ if (isset($_POST['task'])) {
     <link rel="stylesheet" href="../Assets/css/adminStyle.css">
     <link rel="stylesheet" href="../Assets/css/adminResponsive.css">
 
-   
+
 
 
 </head>
@@ -97,7 +59,7 @@ if (isset($_POST['task'])) {
             <header class="header  navbar navbar-expand-sm expand-header">
                 <div class="header-left d-flex">
                     <div class="logo">
-                         Travelling Buddy
+                        Travelling Buddy
                     </div>
                     <a href="#" class="sidebarCollapse" data-placement="bottom" id="toogleSidebar">
                         <span class="fas fa-bars"></span>
@@ -128,7 +90,7 @@ if (isset($_POST['task'])) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users</a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span id = "cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -143,7 +105,7 @@ if (isset($_POST['task'])) {
                             <a href="#"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                        <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
@@ -165,14 +127,14 @@ if (isset($_POST['task'])) {
         <!--------sidebar end------------>
         <div class="content-wrapper">
             <section>
-                <div class="all-admin my-5">
+                <div class="style-table my-5">
                     <div class="container-fluid">
                         <div class="row">
                             <!--Ekhane new user dekhabo-->
                             <div class="col-md-12 col-sm-12">
-                                <div class="admin-list">                                  
+                                <div class="show-table">
                                     <div class="data-table-section table-responsive">
-                                        <table id="userTable" class="table table-striped" style="width:100%">
+                                        <table class="table table-striped" style="width:100%" id="userTable">
                                             <thead>
                                                 <thead>
                                                     <th>UserID</th>
@@ -189,7 +151,7 @@ if (isset($_POST['task'])) {
                                             <tbody>
                                                 <?php
                                                 $db = new database();
-                                                $query = "SELECT * from User where not (Rank = 'ADMIN' or Rank = 'MODERATOR')";
+                                                $query = "SELECT * from User where Rank = 'PENDING'";
                                                 $res = mysqli_query($db->connect(), $query);
                                                 if (mysqli_num_rows($res) > 0) {
 
@@ -217,19 +179,19 @@ if (isset($_POST['task'])) {
     </div>
 
 
-
     <!--Bootstrap 5-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!--JQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-     <!--Custom JS-->                                           
+    <!--Custom JS-->
     <script src="../Assets/scripts/main.js"></script>
     <!--Datatable-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -238,10 +200,15 @@ if (isset($_POST['task'])) {
             });
             //new $.fn.dataTable.FixedHeader(table);
         });
+    </script>
 
+    <script>
         function Approve(userID) {
+            document.getElementById('rank' + userID).parentElement.innerHTML = "";
+            document.getElementById('cntPending').innerText -= 1; 
             $.ajax({
                 type: 'post',
+                url: '../Assets/api/update_user_rank.php',
                 data: {
                     task: "approve",
                     userID: userID
@@ -261,8 +228,11 @@ if (isset($_POST['task'])) {
                 confirmButtonText: 'Yes, reject it!'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    document.getElementById('rank' + userID).parentElement.innerHTML = "";
+                    document.getElementById('cntPending').innerText -= 1; 
                     $.ajax({
                         type: 'post',
+                        url: '../Assets/api/update_user_rank.php',
                         data: {
                             task: "reject",
                             userID: userID

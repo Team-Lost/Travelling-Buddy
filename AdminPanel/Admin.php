@@ -1,5 +1,6 @@
 <?php
 session_start();
+$countPending = 0;
 if (isset($_SESSION['Rank'])) {
     if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
         echo "<h1>404 Error </h1>
@@ -12,6 +13,16 @@ if (isset($_SESSION['Rank'])) {
     return;
 }
 
+include "../Model/Database.php";
+require '../PHPMailer-master/mail.php';
+$db = new Database();
+$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
+$res = mysqli_query($db->connect(), $query);
+if (mysqli_num_rows($res) > 0) {
+    while ($row = mysqli_fetch_array($res)) {
+        $countPending = $row['count(Rank)'];
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -22,14 +33,11 @@ if (isset($_SESSION['Rank'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--Bootstrap 5-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--Bootstrap 5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!--Font awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--Datatable-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
@@ -83,7 +91,7 @@ if (isset($_SESSION['Rank'])) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users</a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<?php echo $countPending ?></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -98,12 +106,12 @@ if (isset($_SESSION['Rank'])) {
                             <a href="https://mail.google.com/mail/u/2/#inbox"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                            <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
                         </li>
-                        
+
                         <li class="sub-menu">
                             <a href="#"> <i class="fas fa-cogs"></i> Settings
                                 <div class="fa fa-caret-down right"></div>
@@ -158,44 +166,31 @@ if (isset($_SESSION['Rank'])) {
                                         <div class="classic-tabs">
                                             <!-- ------Nav Tabs====== -->
                                             <div class="tabs-wrapper">
-                                                <ul class="nav nav-pills chart-header-tab mb-3" id="pills-tab"
-                                                    role="tablist">
+                                                <ul class="nav nav-pills chart-header-tab mb-3" id="pills-tab" role="tablist">
                                                     <li class="nav-item">
-                                                        <a href="#" class="nav-link chart-nav active"
-                                                            id="pills-week-tab" data-bs-toggle="pill"
-                                                            data-bs-target="#pills-week" type="button" role="tab"
-                                                            aria-controls="pills-week" aria-selected="true">Week</a>
+                                                        <a href="#" class="nav-link chart-nav active" id="pills-week-tab" data-bs-toggle="pill" data-bs-target="#pills-week" type="button" role="tab" aria-controls="pills-week" aria-selected="true">Week</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#" class="nav-link chart-nav" id="pills-month-tab"
-                                                            data-bs-toggle="pill" data-bs-target="#pills-month"
-                                                            type="button" role="tab" aria-controls="pills-month"
-                                                            aria-selected="false">Month</a>
+                                                        <a href="#" class="nav-link chart-nav" id="pills-month-tab" data-bs-toggle="pill" data-bs-target="#pills-month" type="button" role="tab" aria-controls="pills-month" aria-selected="false">Month</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="#" class="nav-link chart-nav" id="pills-year-tab"
-                                                            data-bs-toggle="pill" data-bs-target="#pills-year"
-                                                            type="button" role="tab" aria-controls="pills-year"
-                                                            aria-selected="false">year</a>
+                                                        <a href="#" class="nav-link chart-nav" id="pills-year-tab" data-bs-toggle="pill" data-bs-target="#pills-year" type="button" role="tab" aria-controls="pills-year" aria-selected="false">year</a>
                                                     </li>
                                                 </ul>
                                                 <div class="tab-content" id="pills-tabContent">
-                                                    <div class="tab-pane fade show active" id="pills-week"
-                                                        role="tabpanel" aria-labelledby="pills-week-tab">
+                                                    <div class="tab-pane fade show active" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
                                                         Week
                                                         <div class="widget-content">
                                                             <div id="weekly"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="pills-month" role="tabpanel"
-                                                        aria-labelledby="pills-month-tab">
+                                                    <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
                                                         Month
                                                         <div class="widget-content">
                                                             <div id="monthly"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="pills-year" role="tabpanel"
-                                                        aria-labelledby="pills-year-tab">
+                                                    <div class="tab-pane fade" id="pills-year" role="tabpanel" aria-labelledby="pills-year-tab">
                                                         Years
                                                     </div>
                                                 </div>
@@ -364,7 +359,7 @@ if (isset($_SESSION['Rank'])) {
 
             <!------admin show and order status table--------->
             <section>
-                <div class="all-admin my-5">
+            <div class="style-table my-5">
                     <div class="container-fluid">
                         <div class="row">
                             <!--Admin Active Status-->
@@ -435,7 +430,7 @@ if (isset($_SESSION['Rank'])) {
 
                             <!--Ekhane new user dekhabo-->
                             <div class="col-md-8 col-sm-6">
-                                <div class="admin-list">
+                            <div class="show-table">
                                     <p class="order-acc-title">Order Status</p>
                                     <div class="data-table-section table-responsive">
                                         <table id="tableNewUser" class="table table-striped" style="width:100%">
@@ -625,8 +620,8 @@ if (isset($_SESSION['Rank'])) {
                                                     <td>40</td>
                                                     <td>2009/06/25</td>
                                                     <td>$675,000</td>
-                                                </tr>                                             
-                                        </table>     
+                                                </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -651,21 +646,15 @@ if (isset($_SESSION['Rank'])) {
 
 
     <!--Bootstrap 5-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!--JQuery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!--Custom JS-->
     <script src="../Assets/scripts/main.js"></script>
     <!--Chart-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.33.2/apexcharts.min.js"
-        integrity="sha512-iBEfFld2z1SAXCPmgoA40VQtqGP0cEJw4fy+t3ARW30uEfzf8hyrmm4mc5qdth3wZRPdKTv/auk5WH52klRVDg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.33.2/apexcharts.min.js" integrity="sha512-iBEfFld2z1SAXCPmgoA40VQtqGP0cEJw4fy+t3ARW30uEfzf8hyrmm4mc5qdth3wZRPdKTv/auk5WH52klRVDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../Assets/scripts/chart.js"></script>
     <!--Initialize Chart-->
     <script>

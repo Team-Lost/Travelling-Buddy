@@ -4,7 +4,7 @@
     <td><?php echo $row['Phone']; ?></td>
     <td><a href="mailto:"><?php echo $row['Mail']; ?><a></td>
     <td><?php echo $row['Gender']; ?></td>
-    <td><?php echo $row['Rank']; ?></td>
+    <td id = "rank<?php echo $row['UserID'] ?>"><?php echo $row['Rank']; ?></td>
     <?php    
     $fileName = explode('.', $row['IDFile']);
     if (end($fileName) == "pdf") {
