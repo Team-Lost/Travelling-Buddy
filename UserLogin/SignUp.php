@@ -156,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -164,10 +165,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Sign Up</title>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class = "left col-md-4">
+            <div class="left col-md-4">
                 <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data" style="margin-top: 10%; padding-left: 4rem;padding-right: 4rem;">
                     <section class="copy">
                         <h2 class="fw-bold">Sign Up</h2>
@@ -223,19 +225,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" style='background-image: url(../Images/4.jpg);'>
-                                <div class="container"> <!--bootstrap container-->
+                                <div class="container">
+                                    <!--bootstrap container-->
                                     <h1>Hellooo</h1>
                                     <p>Lone Traveller!</p>
                                 </div>
                             </div>
                             <div class="carousel-item" style='background-image: url(../Images/5.jpg);'>
-                                <div class="container"> <!--bootstrap container-->
+                                <div class="container">
+                                    <!--bootstrap container-->
                                     <h1>Sign up</h1>
                                     <p>and we will find you some buddies.</p>
                                 </div>
                             </div>
                             <div class="carousel-item" style='background-image: url(../Images/7.jpg);'>
-                                <div class="container"> <!--bootstrap container-->
+                                <div class="container">
+                                    <!--bootstrap container-->
                                     <h1>Be warned</h1>
                                     <p>Don't give us wrong information!</p>
                                 </div>
@@ -252,10 +257,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                 </section>
             </div>
-               
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        function showError(data) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data
+            });
+        }
 
+        function showInfo(data) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Information received...',
+                text: data
+            });
+        }
+    </script>
 </body>
+
 </html>
