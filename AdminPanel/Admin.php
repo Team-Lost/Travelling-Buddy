@@ -92,15 +92,12 @@ $countReport = countReport();
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-user-tie"></i>Admin List</a>
-                        </li>
+                        </li>                       
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
                         </li>
                         <li>
-                            <a href="https://mail.google.com/mail/u/2/#inbox"><i class="fa-solid fa-envelope-open"></i>Email</a>
+                            <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
                         </li>
                         <li>
                             <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
@@ -108,16 +105,6 @@ $countReport = countReport();
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
                         </li>
-
-                        <li class="sub-menu">
-                            <a href="#"> <i class="fas fa-cogs"></i> Settings
-                                <div class="fa fa-caret-down right"></div>
-                            </a>
-                            <ul class="left-menu-dp">
-                                <li><a href=""><i class="fas fa-user-circle"></i>Account</a></li>
-                            </ul>
-                        </li>
-
                     </ul>
                 </nav>
             </div>

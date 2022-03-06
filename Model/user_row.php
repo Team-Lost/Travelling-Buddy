@@ -8,9 +8,9 @@
     <?php    
     $fileName = explode('.', $row['IDFile']);
     if (end($fileName) == "pdf") {
-        $fileDestination = 'UserIdentification/Documents/' . $row['IDFile'];
+        $fileDestination = '../UserIdentification/Documents/' . $row['IDFile'];
     } else {
-        $fileDestination = 'UserIdentification/Images/' . $row['IDFile'];
+        $fileDestination = '../UserIdentification/Images/' . $row['IDFile'];
     }
     ?>
     <td><a href="<?php echo $fileDestination; ?>"><?php echo $row['IDFile']; ?></a></td>   

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../Model/Database.php";
 if (isset($_COOKIE['rememberUserCookie'])) {
     $cookieID = $_COOKIE['rememberUserCookie'];
     $db = new Database();
@@ -21,7 +22,7 @@ if (isset($_SESSION['UserID'])) {
     header("Location: ../index.php");
 }
 
-include "../Model/Database.php";
+
 /*--------If cookie is set-----*/
 
 $mailError = $passError = $loginError = "";
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         if (password_verify($_POST['password'], $dbPassword)) {
             if ($uRank != 'PENDING') {
-                setcookie("rememberUserCookie", $uID, time() + 60);
+                setcookie("rememberUserCookie", $uID, time() + 86400);
                 echo "Login Successful";
                 $_SESSION['UserID'] = $uID;
                 $_SESSION['UserName'] = $uName;

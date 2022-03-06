@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['Rank'])) {
-    if (!($_SESSION['Rank'] == 'ADMIN' || $_SESSION['Rank'] == 'MODERATOR')) {
+    if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
         echo "<h1>404 Error </h1>
             <h4>Page not found1!</h4>";
         return;
@@ -43,10 +43,6 @@ $countReport = countReport();
     <link rel="stylesheet" href="../Assets/css/adminLayout.css">
     <link rel="stylesheet" href="../Assets/css/adminStyle.css">
     <link rel="stylesheet" href="../Assets/css/adminResponsive.css">
-
-
-
-
 </head>
 
 <body>
@@ -79,7 +75,7 @@ $countReport = countReport();
         <div class="left-menu">
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
-                <ul id="sidebar">
+                    <ul id="sidebar">
                         <li class="active">
                             <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
@@ -115,43 +111,35 @@ $countReport = countReport();
                 <div class="style-table my-5">
                     <div class="container-fluid">
                         <div class="row">
-                            <!--Ekhane new user dekhabo-->
                             <div class="col-md-12 col-sm-12">
                                 <div class="show-table">
                                     <div class="data-table-section table-responsive">
-                                        <table class="table table-striped" style="width:100%" id="userTable">
+                                        <table class="table table-striped table-hover" style="width:100%" id="contactTable">
                                             <thead>
-                                                <thead>
-                                                    <th>UserID</th>
-                                                    <th>UserName</th>
-                                                    <th>Phone</th>
-                                                    <th>Mail</th>
-                                                    <th>Gender</th>
-                                                    <th>Rank</th>
-                                                    <th>IDFile</th>
-                                                    <th>Join Date</th>
-                                                    <th>Action</th>
-                                                </thead>
+                                                <th>Contact ID</th>
+                                                <th>Contact Name</th>
+                                                <th>Contact Mail</th>
+                                                <th>Contact Subject</th>
+                                                <th>Contact Message</th>
+                                                <th>Contact Status</th>
+                                                <th>Action</th>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $db = new database();
-                                                $query = "SELECT * from User where Rank = 'PENDING'";
+                                                $db = new Database();
+                                                $query = "SELECT * from Contact Order by contactID Desc";
                                                 $res = mysqli_query($db->connect(), $query);
                                                 if (mysqli_num_rows($res) > 0) {
-
                                                     while ($row = mysqli_fetch_array($res)) {
-                                                        include "../Model/user_row.php";
+                                                        include "../Model/contact_list.php";
                                                     }
                                                 }
                                                 ?>
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <!--End of Ekhane new user dekhabo-->
 
 
                         </div>
@@ -162,6 +150,7 @@ $countReport = countReport();
 
 
     </div>
+
 
 
     <!--Bootstrap 5-->
@@ -177,64 +166,34 @@ $countReport = countReport();
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     <script>
         $(document).ready(function() {
-            $('#userTable').DataTable({
+            $('#contactTable').DataTable({
                 // responsive: true
             });
             //new $.fn.dataTable.FixedHeader(table);
         });
-    </script>
-
+    </script> 
     <script>
-        function Approve(userID) {   
-            document.getElementById('rank' + userID).parentElement.innerHTML = "";
-            document.getElementById('cntPending').innerText -= 1; 
+        function sendMail(contactMail,contactID) {          
+            document.getElementById('contactID').parentElement.innerHTML = "";
+           /* document.getElementById('cntContact').innerText -= 1;*/   
+
             $.ajax({
                 type: 'post',
-                url: '../Assets/api/update_user_rank.php',
+                url: '../Assets/api/reply_contact.php',
                 data: {
-                    task: "approve",
-                    userID: userID
+                    task: "reply",
+                    contactMail: contactMail,
+                    contactID: contactID,
+                    contactReply: document.getElementById('reply' + contactID).value
+                },
+                success: function(data) {
+                    alert(data);
                 }
             });
-
         }
-
-        function Reject(userID) {
-            Swal.fire({
-                
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, reject it!'
-            }).then((result) => {
-                if (result.isConfirmed) {                    
-                    document.getElementById('rank' + userID).parentElement.innerHTML = "";
-                    document.getElementById('cntPending').innerText -= 1; 
-                    $.ajax({
-                        type: 'post',
-                        url: '../Assets/api/update_user_rank.php',
-                        data: {
-                            task: "reject",
-                            userID: userID
-                        }
-                    });
-                    Swal.fire(                            
-                        'Deleted!',
-                        'Approve request has been rejected.',
-                        'success'
-                    )
-                }
-            })
-
-        }
-    </script>
-
+    </script>   
 </body>
 
 </html>
