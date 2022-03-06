@@ -4,6 +4,7 @@ if (!isset($_SESSION['UserID'])) {
     header("Location:UserLogin/Login.php");
 }
 include "Model/Database.php";
+include "ban_check.php";
 
 ?>
 

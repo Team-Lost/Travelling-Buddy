@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['UserID'])) {
     header("Location:UserLogin/Login.php");
 }
+include "ban_check.php";
 
 ?>
 

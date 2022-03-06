@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['UserID'])) {
     header("Location:UserLogin/Login.php");
 }
+include "ban_check.php";
 ?>
 
 <html>
@@ -22,6 +23,7 @@ if (!isset($_SESSION['UserID'])) {
 
 <body class="body-ssp-fb">
     <?php
+ 
     include "navbar_user.php";
     function getPath($UserID)
     {

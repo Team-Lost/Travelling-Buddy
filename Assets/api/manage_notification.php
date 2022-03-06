@@ -49,9 +49,13 @@ if (isset($_POST['task'])) {
     }
 
     if ($_POST['task'] == 'MAKE') {
+        
         $postID = $_POST['postID'];
         $userID = getCreatorID($postID);
         $data = $_POST['about'];
+        if ($userID == $currID) {
+            return;
+        }
         if ($data == 'ACCEPT' || $data == 'REJECT') {
             $userID = $_POST['userID'];
         }

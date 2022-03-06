@@ -66,9 +66,9 @@ if (isset($_POST['task'])) {
         }
         else
         {
-            //if user,get the user id and destroy his session
-            $_SESSION['$reportID'].session_destroy();
-
+            $query = "UPDATE USER SET rank = 'BANNED' WHERE UserID = $reportedID";
+            $db->updateTable($query);
+            $response = 1;
         }
        //And of function need to call resolve
           

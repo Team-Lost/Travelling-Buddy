@@ -13,7 +13,7 @@
                     <option value="1">Harrassment</option>
                     <option value="2">Spam</option>
                     <option value="3">Hate Speech</option>
-                    <option value="3">Something Else</option>
+                    <option value="4">Something Else</option>
                 </select>
                 <label for="details<?php echo $userPost['postID'] ?>">Details:</label>
                 <textarea id="details<?php echo $userPost['postID'] ?>" name="details" class="form-control bottom-input" rows="5" required></textarea>

@@ -68,7 +68,11 @@ if (!isset($_SESSION['UserID'])) {
                             ?>
                         </div>
                         <div class="col-8">
-                            <p class="fw-bold h3 text-left"><?php echo $user['UserName'] ?></p>
+                            <p class="fw-bold h3 text-left"><?php echo $user['UserName'] ?><span>
+                                    <?php if ($linkID != $_SESSION['UserID']) {
+                                        include "Model/report_button_user.php";
+                                    }
+                                    ?></span></p>
                             <table class="table-clear">
                                 <tr>
                                     <td class="image-center"><i class="fas fa-envelope"></i></td>
@@ -140,6 +144,25 @@ if (!isset($_SESSION['UserID'])) {
             }
         }
 
+        function reportID(userID) {
+            var selectOpt = document.getElementById("select" + userID);
+            var selectedOpt = selectOpt.options[selectOpt.selectedIndex].text;
+            var detailsOpt = document.getElementById("details" + userID);
+            $.ajax({
+                type: 'post',
+                url: "Assets/api/make_user_reports.php",
+                data: {
+                    task: 'REPORT_ID',
+                    userID: userID,
+                    reason: selectedOpt,
+                    details: detailsOpt.value
+                }
+            });
+            $("[data-bs-dismiss=modal]").trigger({
+                type: "click"
+            });
+        }
+
         function showError(errorText) {
             Swal.fire({
                 icon: 'error',
@@ -148,6 +171,7 @@ if (!isset($_SESSION['UserID'])) {
             })
         }
     </script>
+
 </body>
 
 </html>
