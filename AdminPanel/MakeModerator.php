@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['Rank'])) {
-    if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
+    if (!($_SESSION['Rank'] == trim('ADMIN'))) {
         echo "<h1>404 Error </h1>
             <h4>Page not found1!</h4>";
         return;
@@ -17,7 +17,6 @@ include "../Model/Functions.php";
 //in function class
 $countPending = countPending();
 $countReport = countReport();
-
 
 ?>
 <!DOCTYPE html>
@@ -95,12 +94,12 @@ $countReport = countReport();
                             <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
+                            <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
                         </li>
                         <?php
                         if ($_SESSION['Rank'] == 'ADMIN') {
                             echo "<li>
-                            <a href='MakeModerator.php'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
+                            <a href='#'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
                             </li>";
                         }
                         ?>
@@ -109,6 +108,7 @@ $countReport = countReport();
             </div>
         </div>
         <!--------sidebar end------------>
+
         <div class="content-wrapper">
             <section>
                 <div class="style-table my-5">
@@ -117,23 +117,25 @@ $countReport = countReport();
                             <div class="col-md-12 col-sm-12">
                                 <div class="show-table">
                                     <div class="data-table-section table-responsive">
-                                        <table class="table table-striped table-hover" style="width:100%" id="reportTable">
+                                        <table class="table table-striped table-bordered" id="userList">
                                             <thead>
-                                                <th>Report Type</th>
-                                                <th>Reported ID</th>
-                                                <th>Reason</th>
-                                                <th>Details</th>
-                                                <th>Status</th>
+                                                <th>UserName</th>
+                                                <th>Phone</th>
+                                                <th>Mail</th>
+                                                <th>Gender</th>
+                                                <th>Rank</th>
+                                                <th>IDFile</th>
+                                                <th>Join Date</th>
                                                 <th>Action</th>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $db = new Database();
-                                                $query = "SELECT * from Reports where status = 'UNRESOLVED'";
+                                                $db = new database();
+                                                $query = "SELECT * from User where Rank = 'USER'";
                                                 $res = mysqli_query($db->connect(), $query);
                                                 if (mysqli_num_rows($res) > 0) {
                                                     while ($row = mysqli_fetch_array($res)) {
-                                                        include "../Model/report_list.php";
+                                                        include "../Model/moderator_row.php";
                                                     }
                                                 }
                                                 ?>
@@ -142,8 +144,6 @@ $countReport = countReport();
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -170,74 +170,46 @@ $countReport = countReport();
 
     <script>
         $(document).ready(function() {
-            $('#reportTable').DataTable({
+            $('#userList').DataTable({
                 // responsive: true
             });
             //new $.fn.dataTable.FixedHeader(table);
-        });
+        });        
     </script>
     <script>
-        function Dismiss(reportID, reportedID, reportType, reportedBy) {          
-            document.getElementById('status' + reportID).parentElement.innerHTML = "";
-            document.getElementById('cntReport').innerText -= 1;            
-            $.ajax({
-                type: 'post',
-                url: '../Assets/api/action_report.php',
-                data: {
-                    task: "dismiss",
-                    reportID: reportID,
-                    reportedID: reportedID,
-                    reportedBy: reportedBy,
-                    reportType: reportType
-                   
-                },
-                success: function(data) {
-                    alert(data);
-                }
-            });
-        }
-
-        function Ban(reportID, reportedID, reportType, reportedBy) {
+           function makeModerator(userID, userMail) {
             Swal.fire({
+                
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "Make sure to check all infos!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, ban it!'
+                confirmButtonText: 'Yes, update to Moderator!'
             }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('status' + reportID).parentElement.innerHTML = "";
-                    document.getElementById('cntPending').innerText -= 1;
+                if (result.isConfirmed) {                    
+                    document.getElementById('rank' + userID).parentElement.innerHTML = "";                    
                     $.ajax({
                         type: 'post',
-                        url: '../Assets/api/action_report.php',
+                        url: '../Assets/api/add_moderator.php',
                         data: {
-                            task: "ban",
-                            reportID: reportID,
-                            reportedID: reportedID,
-                            reportType: reportType,
-                            reportedBy: reportedBy
+                            task: "make",
+                            userID: userID,
+                            userMail: userMail
                         }
                     });
-                    if (reportType == "POST") {
-                        Swal.fire(
-                            'Banned!',
-                            'Approve request has been rejected.',
-                            'success'
-                        )
-                    } else {
-                        Swal.fire(
-                            'Deleted!',
-                            'This post has been deleted.',
-                            'success'
-                        )
-                    }
+                    Swal.fire(                            
+                        'Updated!',
+                        'The user has not selected as moderator',
+                        'success'
+                    )
                 }
             })
+
         }
     </script>
+
 </body>
 
 </html>
