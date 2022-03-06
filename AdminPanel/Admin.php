@@ -1,6 +1,5 @@
 <?php
 session_start();
-$countPending = 0;
 if (isset($_SESSION['Rank'])) {
     if (!($_SESSION['Rank'] == trim('ADMIN') || $_SESSION['Rank'] == 'MODERATOR')) {
         echo "<h1>404 Error </h1>
@@ -15,14 +14,12 @@ if (isset($_SESSION['Rank'])) {
 
 include "../Model/Database.php";
 require '../PHPMailer-master/mail.php';
-$db = new Database();
-$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
-$res = mysqli_query($db->connect(), $query);
-if (mysqli_num_rows($res) > 0) {
-    while ($row = mysqli_fetch_array($res)) {
-        $countPending = $row['count(Rank)'];
-    }
-}
+include "../Model/Functions.php";
+
+//in function class
+$countPending = countPending();
+$countReport = countReport();
+
 
 ?>
 <!DOCTYPE html>
@@ -91,7 +88,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<?php echo $countPending ?></a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -106,7 +103,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="https://mail.google.com/mail/u/2/#inbox"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                            <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                            <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
@@ -359,7 +356,7 @@ if (mysqli_num_rows($res) > 0) {
 
             <!------admin show and order status table--------->
             <section>
-            <div class="style-table my-5">
+                <div class="style-table my-5">
                     <div class="container-fluid">
                         <div class="row">
                             <!--Admin Active Status-->
@@ -430,7 +427,7 @@ if (mysqli_num_rows($res) > 0) {
 
                             <!--Ekhane new user dekhabo-->
                             <div class="col-md-8 col-sm-6">
-                            <div class="show-table">
+                                <div class="show-table">
                                     <p class="order-acc-title">Order Status</p>
                                     <div class="data-table-section table-responsive">
                                         <table id="tableNewUser" class="table table-striped" style="width:100%">

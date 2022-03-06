@@ -13,14 +13,12 @@ if (isset($_SESSION['Rank'])) {
 }
 include "../Model/Database.php";
 require '../PHPMailer-master/mail.php';
-$db = new Database();
-$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
-$res = mysqli_query($db->connect(), $query);
-if (mysqli_num_rows($res) > 0) {
-    while ($row = mysqli_fetch_array($res)) {
-        $countPending = $row['count(Rank)'];
-    }
-}
+include "../Model/Functions.php";
+//in function class
+$countPending = countPending();
+$countReport = countReport();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +83,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                        <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<?php echo $countPending ?></a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -100,7 +98,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="#"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                            <a href="#"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
@@ -122,17 +120,17 @@ if (mysqli_num_rows($res) > 0) {
         <!--------sidebar end------------>
         <div class="content-wrapper">
             <section>
-            <div class="style-table my-5">
+                <div class="style-table my-5">
                     <div class="container-fluid">
-                        <div class="row">                         
+                        <div class="row">
                             <div class="col-md-12 col-sm-12">
-                            <div class="show-table">
-                            <div class="data-table-section table-responsive">
+                                <div class="show-table">
+                                    <div class="data-table-section table-responsive">
                                         <table class="table table-striped table-hover" style="width:100%" id="reportTable">
-                                            <thead>                                                                                                
-                                                <th>Report Type</th>                                      
-                                                <th>Reason</th>
+                                            <thead>
+                                                <th>Report Type</th>
                                                 <th>Reported ID</th>
+                                                <th>Reason</th>
                                                 <th>Details</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -140,7 +138,7 @@ if (mysqli_num_rows($res) > 0) {
                                             <tbody>
                                                 <?php
                                                 $db = new Database();
-                                                $query = "SELECT * from Reports";
+                                                $query = "SELECT * from Reports where status = 'UNRESOLVED'";
                                                 $res = mysqli_query($db->connect(), $query);
                                                 if (mysqli_num_rows($res) > 0) {
                                                     while ($row = mysqli_fetch_array($res)) {
@@ -153,7 +151,7 @@ if (mysqli_num_rows($res) > 0) {
                                     </div>
                                 </div>
                             </div>
-                           
+
 
                         </div>
                     </div>
@@ -188,13 +186,61 @@ if (mysqli_num_rows($res) > 0) {
         });
     </script>
     <script>
-        function Dismiss(reportedID, reportType)
-        {
-            alert(reportType);
+        function Dismiss(reportID, reportType, reportedBy) {          
+            document.getElementById('status' + reportID).parentElement.innerHTML = "";
+            document.getElementById('cntReport').innerText -= 1;            
+            $.ajax({
+                type: 'post',
+                url: '../Assets/api/action_report.php',
+                data: {
+                    task: "dismiss",
+                    reportID: reportID,
+                    reportedBy: reportedBy,
+                    reportType: reportType
+                   
+                }
+            });
         }
-        function Ban(reportedID, reportType)
-        {
-            alert(reportType);
+
+        function Ban(reportID, reportedID, reportType, reportedBy) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, ban it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('status' + reportID).parentElement.innerHTML = "";
+                    document.getElementById('cntPending').innerText -= 1;
+                    $.ajax({
+                        type: 'post',
+                        url: '../Assets/api/action_report.php',
+                        data: {
+                            task: "ban",
+                            reportID: reportID,
+                            reportedID: reportedID,
+                            reportType: reportType,
+                            reportedBy: reportedBy
+                        }
+                    });
+                    if (reportType == "POST") {
+                        Swal.fire(
+                            'Banned!',
+                            'Approve request has been rejected.',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Deleted!',
+                            'This post has been deleted.',
+                            'success'
+                        )
+                    }
+                }
+            })
         }
     </script>
 </body>

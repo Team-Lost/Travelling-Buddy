@@ -17,9 +17,11 @@
     <td><?php echo $row['reportedID']; ?></td> 
     <td><?php echo $row['reason']; ?></td>
     <td><?php echo $row['details']; ?></td>
-    <td><?php echo $row['status']; ?></td>
-    <td>
-        <a href="<?php echo "javascript:Ban($row[reportedID], $row[reportType])";?>">Ban</a>
-        <a href="<?php echo "javascript:Dismiss($row[reportedID], $row[reportType])";?>">Reject</a>
+    <td id = "status<?php echo $row['reportID'] ?>"><?php echo $row['status']; ?></td>
+    <td>       
+        <!----ReportID----ReportedID------ReportedType---------ReportedBy-->       
+        <a href="<?php echo "javascript:Ban($row[reportID], $row[reportedID], '$row[reportType]', $row[reportedBy])";?>">Ban</a>
+        <!--ReportID------ReportedType---------ReportedBy-->
+        <a href="<?php echo "javascript:Dismiss($row[reportID], '$row[reportType]', $row[reportedBy])";?>">Dismiss</a>
     </td>
 </tr>

@@ -13,14 +13,11 @@ if (isset($_SESSION['Rank'])) {
 }
 include "../Model/Database.php";
 require '../PHPMailer-master/mail.php';
-$db = new Database();
-$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
-$res = mysqli_query($db->connect(), $query);
-if (mysqli_num_rows($res) > 0) {
-    while ($row = mysqli_fetch_array($res)) {
-        $countPending = $row['count(Rank)'];
-    }
-}
+include "../Model/Functions.php";
+//in function class
+$countPending = countPending();
+$countReport = countReport();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +82,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                        <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<?php echo $countPending ?></a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -100,7 +97,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="#"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                        <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                            <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
@@ -122,14 +119,14 @@ if (mysqli_num_rows($res) > 0) {
         <!--------sidebar end------------>
         <div class="content-wrapper">
             <section>
-            <div class="style-table my-5">
+                <div class="style-table my-5">
                     <div class="container-fluid">
-                        <div class="row">                         
+                        <div class="row">
                             <div class="col-md-12 col-sm-12">
-                            <div class="show-table">
+                                <div class="show-table">
                                     <div class="data-table-section table-responsive">
                                         <table class="table table-striped table-bordered" id="userList">
-                                            <thead>                                              
+                                            <thead>
                                                 <th>UserName</th>
                                                 <th>Phone</th>
                                                 <th>Mail</th>
@@ -155,7 +152,7 @@ if (mysqli_num_rows($res) > 0) {
                                     </div>
                                 </div>
                             </div>
-                           
+
 
                         </div>
                     </div>

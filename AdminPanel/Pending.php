@@ -13,14 +13,11 @@ if (isset($_SESSION['Rank'])) {
 }
 include "../Model/Database.php";
 require '../PHPMailer-master/mail.php';
-$db = new Database();
-$query = "SELECT count(Rank) from User where Rank = 'PENDING'";
-$res = mysqli_query($db->connect(), $query);
-if (mysqli_num_rows($res) > 0) {
-    while ($row = mysqli_fetch_array($res)) {
-        $countPending = $row['count(Rank)'];
-    }
-};
+include "../Model/Functions.php";
+//in function class
+$countPending = countPending();
+$countReport = countReport();
+
 
 ?>
 <!DOCTYPE html>
@@ -90,7 +87,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
-                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span id = "cntPending"><?php echo $countPending ?></span></a>
+                            <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class = "mx-2" id = "cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
@@ -105,7 +102,7 @@ if (mysqli_num_rows($res) > 0) {
                             <a href="#"><i class="fa-solid fa-envelope-open"></i>Email</a>
                         </li>
                         <li>
-                        <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports</a>
+                        <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class = "mx-2" id = "cntReport"><?php echo $countReport ?></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
@@ -203,7 +200,7 @@ if (mysqli_num_rows($res) > 0) {
     </script>
 
     <script>
-        function Approve(userID) {
+        function Approve(userID) {   
             document.getElementById('rank' + userID).parentElement.innerHTML = "";
             document.getElementById('cntPending').innerText -= 1; 
             $.ajax({
@@ -219,6 +216,7 @@ if (mysqli_num_rows($res) > 0) {
 
         function Reject(userID) {
             Swal.fire({
+                
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
@@ -227,7 +225,7 @@ if (mysqli_num_rows($res) > 0) {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, reject it!'
             }).then((result) => {
-                if (result.isConfirmed) {
+                if (result.isConfirmed) {                    
                     document.getElementById('rank' + userID).parentElement.innerHTML = "";
                     document.getElementById('cntPending').innerText -= 1; 
                     $.ajax({
@@ -238,8 +236,7 @@ if (mysqli_num_rows($res) > 0) {
                             userID: userID
                         }
                     });
-                    Swal.fire(
-
+                    Swal.fire(                            
                         'Deleted!',
                         'Approve request has been rejected.',
                         'success'

@@ -2,10 +2,10 @@
     include "../../Model/Database.php";
     require '../../PHPMailer-master/mail.php';
     $response = 0;
-    function getMail($userID)
+    function getMail($id)
 {
     $db = new database();
-    $query = "Select Mail from User where UserID = $userID";
+    $query = "Select Mail from User where UserID = $id";
     $res = mysqli_query($db->connect(), $query);
     if (mysqli_num_rows($res) > 0) {
         if ($row = mysqli_fetch_assoc($res)) {
@@ -51,3 +51,4 @@
         }
     }
     echo $response;
+    ?>
