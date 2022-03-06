@@ -83,11 +83,11 @@ $countReport = countReport();
                         <li>
                             <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
                         </li>
-                        <li>
+                        <li class = "active">
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
                         </li>
                         <li>
-                            <a href="ModeratorList.php"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
+                            <a href="ModeratorList.php"><i class="fa-solid fa-user-tie"></i>Moderator List</a>
                         </li>                      
                         <li>
                             <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
@@ -98,7 +98,7 @@ $countReport = countReport();
                         <?php
                         if ($_SESSION['Rank'] == 'ADMIN') {
                             echo "<li>
-                            <a href='MakeModerator.php'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
+                            <a href='MakeModerator.php'><i class='fa-solid fa-plus'></i>Make Moderator</a>
                             </li>";
                         }
                         ?>
@@ -157,7 +157,7 @@ $countReport = countReport();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!--Custom JS-->
-    <script src="../Assets/scripts/main.js"></script>
+    <script src="/../Assets/scripts/main.js"></script>
     <!--Datatable-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>

@@ -1,8 +1,7 @@
 /*----------left sidebar---------------*/
 
-var lis = document.getElementById("navbar").getElementsByTagName("li");
-function process(){
-    alert('check');
+/*var lis = document.getElementById("navbar").getElementsByTagName("li");
+function process(){    
      for (let i = 0; i < lis.length; i++) {
       lis[i].classList.remove('active');
       
@@ -13,7 +12,7 @@ function process(){
 
 for (let i = 0; i < lis.length; i++) {
      lis[i].addEventListener("click", process);
-}
+}*/
             
 /*----------left sidebar dropdown menu toggle---------------*/
 $('.sub-menu ul').hide();

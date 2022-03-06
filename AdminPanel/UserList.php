@@ -75,7 +75,7 @@ $countReport = countReport();
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
                     <ul id="sidebar">                        
-                        <li>
+                        <li class = "active">
                             <a href="#"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
@@ -85,7 +85,7 @@ $countReport = countReport();
                             <a href="BannedUser.php"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
                         </li>
                         <li>
-                            <a href="ModeratorList.php"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
+                            <a href="ModeratorList.php"><i class="fa-solid fa-user-tie"></i>Moderator List</a>
                         </li>                      
                         <li>
                             <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
@@ -96,7 +96,7 @@ $countReport = countReport();
                         <?php
                         if ($_SESSION['Rank'] == 'ADMIN') {
                             echo "<li>
-                            <a href='MakeModerator.php'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
+                            <a href='MakeModerator.php'><i class='fa-solid fa-plus'></i>Make Moderator</a>
                             </li>";
                         }
                         ?>

@@ -86,7 +86,7 @@ $countReport = countReport();
                             <a href="BannedUser.php"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
                         </li>
                         <li>
-                            <a href="ModeratorList.php"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
+                            <a href="ModeratorList.php"><i class="fa-solid fa-user-tie"></i>Moderator List</a>
                         </li>                      
                         <li>
                             <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
@@ -96,8 +96,8 @@ $countReport = countReport();
                         </li>
                         <?php
                         if ($_SESSION['Rank'] == 'ADMIN') {
-                            echo "<li>
-                            <a href='#'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
+                            echo "<li class = 'active'>
+                            <a href='#'><i class='fa-solid fa-plus'></i>Make Moderator</a>
                             </li>";
                         }
                         ?>
