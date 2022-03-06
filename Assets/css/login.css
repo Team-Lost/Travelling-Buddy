@@ -14,13 +14,13 @@ body {
     min-height: 100vh;
 }
 
-.row .right {
+.row .left {
     background-color: white;
     padding: 0;
     margin: 0;
 }
 
-.row .left .loginForm {
+.row .right .loginForm {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -29,7 +29,7 @@ body {
     align-items: center;
 }
 
-.left .loginForm .input {
+.right .loginForm .input {
     width: 160px;
 }
 
@@ -157,31 +157,4 @@ body {
     .home .carousel-item p {
         font-size: 22px;
     }
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form input[type="password"] {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 8px;
-}
-
-label {
-    padding: 0 5px;
-}
-
-form input[type="submit"] {
-    width: 100%;
-    display: block;
-    border-radius: 15px;
-}
-
-form input[type="file"] {
-    margin: 0;
-    padding: 2rem 1.5rem;
-    font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-    color: #5a5a5a;
 }

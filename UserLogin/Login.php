@@ -78,57 +78,78 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/cee0f4dddc.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../Assets/css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link href="../Assets/css/home.css" rel="stylesheet">
-    <style>
-        body {
-            background-image: linear-gradient(to bottom right, gray, white);
-            min-height: 100vh;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
-        button {
-            height: 40px;
-        }
-    </style>
+    <title>Login</title>
 </head>
-
 <body>
-    <br><br><br>
-    <div class="container container-fitter p-4">
-        <form action="#" method="post" enctype="multipart/form-data">
-            <h1 class="text-center">Sign In</h1>
-            <label for="">Email:</label>
-            <input type="email" class="form-control" id="formInput" name="mail" placeholder="tv@gmail.com" title="Please enter a valid mail!">
-            <p class="error text-center"> <?php echo $mailError; ?></p>
-            <label for="">Password:</label>
-            <input type="password" class="form-control" id="formInput" name="password" placeholder="password">
-            <p class="error text-center"> <?php echo $passError; ?></p>
-            <button type="submit" class="btn btn-primary form-control" name="Submit">Login</button>
-            <p class="text-center"><?php echo $loginError; ?></p>
-            <a href="ForgotPassword.php" class="formAnchor">
-                <p class="text-center">Forgotten password?</p>
-            </a>
-            <div class="gap-gray"></div>
-            <button type="button" class="btn btn-info form-control margin-t15" onclick="javascript:loadSignUp()">Create New Account</button>
-        </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="left col-md-8">
+                <section class="home">
+                    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style='background-image: url(../Images/1.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Hellooo</h1>
+                                    <p>Lone Traveller!</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style='background-image: url(../Images/2.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Travelling alone?</h1>
+                                    <p>Let's find you some friend</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style='background-image: url(../Images/3.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Just Login</h1>
+                                    <p>Or sign up if you don't have an ID yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+            <div class = "right col-md-4">
+                <form action="#" method="post" enctype="multipart/form-data" style="margin-top: 50%; padding-left: 4rem;padding-right: 4rem;">
+                    <h1 class="text-center">Sign In</h1>
+                    <label for="">Email:</label>
+                    <input type="email" class="form-control" id="formInput" name="mail" placeholder="tv@gmail.com" title="Please enter a valid mail!">
+                    <p class="error text-center"> <?php echo $mailError; ?></p>
+                    <label for="">Password:</label>
+                    <input type="password" class="form-control" id="formInput" name="password" placeholder="password">
+                    <p class="error text-center"> <?php echo $passError; ?></p>
+                    <button type="submit" class="btn btn-primary form-control" name="Submit">Login</button>
+                    <p class="text-center"><?php echo $loginError; ?></p>
+                    <a href="ForgotPassword.php" class="formAnchor">
+                        <p class="text-center">Forgotten password?</p>
+                    </a>
+                    <div class="gap-gray"></div>
+                    <button type="button" class="btn btn-info form-control margin-t15" onclick="javascript:loadSignUp()">Create New Account</button>
+                </form>
+            </div>   
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>
         function loadSignUp() {
             location.replace("SignUp.php")
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
 
+</body>
 </html>

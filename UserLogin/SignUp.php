@@ -154,170 +154,108 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../Assets/css/signup.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>SignUp</title>
-    <!--Main CSS-->
-    <style>
-        :root {
-            font-size: 100%;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-
-        body {
-            padding: 0;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .split-screen {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .left {
-            height: 200px;
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../Images/1.jpg");
-            background-repeat: no-repeat;
-            background-size: auto 100vh;
-
-        }
-
-        .left,
-        .right {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .left .copy {
-            color: white;
-            text-align: center;
-        }
-
-        .right .copy {
-            text-align: center;
-        }
-
-        form input[type="text"],
-        form input[type="email"],
-        form input[type="tel"],
-        form input[type="password"] {
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 8px;
-        }
-
-        label {
-            padding: 0 5px;
-        }
-
-        form input[type="submit"] {
-            width: 100%;
-            display: block;
-            border-radius: 15px;
-        }
-
-        form input[type="file"] {
-            margin: 0;
-            padding: 2rem 1.5rem;
-            font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-            color: #5a5a5a;
-        }
-
-        @media screen and (min-width:900px) {
-            .split-screen {
-                flex-direction: row;
-                height: 100vh;
-            }
-
-            .left,
-            .right {
-                display: flex;
-                width: 50%;
-                height: auto;
-            }
-        }
-    </style>
+    <title>Sign Up</title>
 </head>
-
 <body>
-
-
-    <!--Client Side Validation-->
-    <div class="split-screen">
-        <div class="left">
-            <section class="copy">
-                <h1>Travelling Buddy</h1>
-
-            </section>
-        </div>
-        <div class="right">
-            <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data">
-                <section class="copy">
-                    <h2>Sign Up</h2>
-                    <div class="login-container">
-                        <p>Already Have an account?</p>
-                        <a href="Login.php">Sign In</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class = "left col-md-4">
+                <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data" style="margin-top: 10%; padding-left: 4rem;padding-right: 4rem;">
+                    <section class="copy">
+                        <h2 class="fw-bold">Sign Up</h2>
+                        <div class="login-container">
+                            <p class="fw-light">Already Have an account?<br><a href="Login.php">Sign In</a></p>
+                        </div>
+                    </section>
+                    <div class="input-container">
+                        <label for="userName">Full Name:</label>
+                        <input class="form-control shadow-sm mb-3" type="text" name="userName" id="userName" placeholder="Full Name (Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
+                        <span class="text-danger error"><?php echo $nameError; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="phoneNumber" class="mt-3">Phone Number:</label>
+                        <input class="form-control shadow-sm mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number (Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
+                        <span class="text-danger error"> <?php echo $phnError; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="mail" class="mt-3">Mail:</label>
+                        <input class="form-control shadow-sm mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
+                        <span class="text-danger error"><?php echo $mailError; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="gender" class="mt-3">Gender:</label>
+                        <input class="mx-1" type="radio" name="gender" value="male" required>Male
+                        <input class="mx-1" type="radio" name="gender" value="female">Female
+                        <input class="mx-1" type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
+                        <span class="text-danger error"><?php echo $genderError; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="password1" class="mt-3">Password:</label>
+                        <input class="form-control shadow-sm mb-3" type="password" name="password1" placeholder="Password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                        <span class="text-danger error"><?php echo $pass1Error; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="password2" class="mt-3">Confirm Password:</label>
+                        <input class="form-control shadow-sm mb-3" type="password" name="password2" placeholder="Confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                        <span class="text-danger error"><?php echo $pass2Error; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="files" class="mt-3">Files:</label>
+                        <input type="file" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
+                        <span class="text-danger error"><?php echo $filesError; ?></span>
+                    </div>
+                    <div class="input-container">
+                        <input class="form-control mt-3 shadow-sm" type="submit" name="submit">
+                        <p class="text-center"><?php echo $success; ?></p>
+                    </div>
+                </form>
+            </div>
+            <div class="right col-md-8">
+                <section class="home">
+                    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style='background-image: url(../Images/4.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Hellooo</h1>
+                                    <p>Lone Traveller!</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style='background-image: url(../Images/5.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Sign up</h1>
+                                    <p>and we will find you some buddies.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style='background-image: url(../Images/7.jpg);'>
+                                <div class="container"> <!--bootstrap container-->
+                                    <h1>Be warned</h1>
+                                    <p>Don't give us wrong information!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </section>
-                <div class="input-container">
-                    <label for="userName">Full Name*</label>
-                    <input class="form-control mb-3" type="text" name="userName" id="userName" placeholder="Full Name(Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
-                    <span class="text-danger error"><?php echo $nameError; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="phoneNumber" class="mt-3">Phone Number*</label>
-                    <input class="form-control mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number(Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
-                    <span class="text-danger error"> <?php echo $phnError; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="mail" class="mt-3">Mail*</label>
-                    <input class="form-control mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
-                    <span class="text-danger error"><?php echo $mailError; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="gender" class="mt-3">Gender*</label>
-                    <input type="radio" name="gender" value="male" required>Male
-                    <input type="radio" name="gender" value="female">Female
-                    <input type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
-                    <span class="text-danger error"><?php echo $genderError; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="password1" class="mt-3">Password*</label>
-                    <input class="form-control mb-3" type="password" name="password1" placeholder="password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                    <span class="text-danger error"><?php echo $pass1Error; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="password2" class="mt-3">Confirm Password*</label>
-                    <input class="form-control mb-3" type="password" name="password2" placeholder="confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
-                    <span class="text-danger error"><?php echo $pass2Error; ?></span>
-                </div>
-                <div class="input-container">
-                    <label for="files" class="mt-3">Files*</label>
-                    <input type="file" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
-                    <span class="text-danger error"><?php echo $filesError; ?></span>
-                </div>
-                <div class="input-container">
-                    <input class="form-control mt-3" type="submit" name="submit">
-                    <p class="text-center"><?php echo $success; ?></p>
-                </div>
-            </form>
+            </div>
+               
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
-
 </html>
