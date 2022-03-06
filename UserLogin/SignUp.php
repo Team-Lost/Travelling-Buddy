@@ -169,8 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="left col-md-4">
-                <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data" style="margin-top: 10%; padding-left: 4rem;padding-right: 4rem;">
+            <div class="left col-md-4 lg-4">
+                <form action="" class="signUp1" method="post" class="form-control" enctype="multipart/form-data" style="padding-left: 2rem;padding-right: 2rem;">
                     <section class="copy">
                         <h2 class="fw-bold">Sign Up</h2>
                         <div class="login-container">
@@ -179,48 +179,48 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </section>
                     <div class="input-container">
                         <label for="userName">Full Name:</label>
-                        <input class="form-control shadow-sm mb-3" type="text" name="userName" id="userName" placeholder="Full Name (Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
+                        <input class="form-control shadow-sm" type="text" name="userName" id="userName" placeholder="Full Name (Letters only)" value="<?php echo $userName; ?>" minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
                         <span class="text-danger error"><?php echo $nameError; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="phoneNumber" class="mt-3">Phone Number:</label>
-                        <input class="form-control shadow-sm mb-3" type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number (Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
+                        <label for="phoneNumber" class="">Phone Number:</label>
+                        <input class="form-control shadow-sm " type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number (Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
                         <span class="text-danger error"> <?php echo $phnError; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="mail" class="mt-3">Mail:</label>
-                        <input class="form-control shadow-sm mb-3" type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
+                        <label for="mail" class="">Mail:</label>
+                        <input class="form-control shadow-sm " type="email" name="mail" id="mail" placeholder="@" value="<?php echo $mail; ?>" required>
                         <span class="text-danger error"><?php echo $mailError; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="gender" class="mt-3">Gender:</label>
+                        <label for="gender" class="">Gender:</label>
                         <input class="mx-1" type="radio" name="gender" value="male" required>Male
                         <input class="mx-1" type="radio" name="gender" value="female">Female
-                        <input class="mx-1" type="radio" class="mb-3" name="gender" value="thirdGender">Third Gender
+                        <input class="mx-1" type="radio" class="" name="gender" value="thirdGender">Third Gender
                         <span class="text-danger error"><?php echo $genderError; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="password1" class="mt-3">Password:</label>
-                        <input class="form-control shadow-sm mb-3" type="password" name="password1" placeholder="Password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                        <label for="password1" class="">Password:</label>
+                        <input class="form-control shadow-sm " type="password" name="password1" placeholder="Password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
                         <span class="text-danger error"><?php echo $pass1Error; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="password2" class="mt-3">Confirm Password:</label>
-                        <input class="form-control shadow-sm mb-3" type="password" name="password2" placeholder="Confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
+                        <label for="password2" class="">Confirm Password:</label>
+                        <input class="form-control shadow-sm " type="password" name="password2" placeholder="Confirm password" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#\?\!\@\$\%\^\&\*\-]).{8,}$">
                         <span class="text-danger error"><?php echo $pass2Error; ?></span>
                     </div>
                     <div class="input-container">
-                        <label for="files" class="mt-3">Files:</label>
+                        <label for="files" class="">Files:</label>
                         <input type="file" name="files" id="files" accept="application/pdf,image/png,image/jpeg,image/jpg" required>
                         <span class="text-danger error"><?php echo $filesError; ?></span>
                     </div>
                     <div class="input-container">
-                        <input class="form-control mt-3 shadow-sm" type="submit" name="submit">
+                        <input class="form-control  shadow-sm" type="submit" name="submit">
                         <p class="text-center"><?php echo $success; ?></p>
                     </div>
                 </form>
             </div>
-            <div class="right col-md-8">
+            <div class="right col-md-8 lg-8">
                 <section class="home">
                     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">

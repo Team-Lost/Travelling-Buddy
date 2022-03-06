@@ -2,18 +2,13 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+   
 }
 
 .container-fluid {
     background-color: whitesmoke;
 
 }
-
-.row {
-
-    min-height: 100vh;
-}
-
 .row .right {
     background-color: white;
     padding: 0;
@@ -27,6 +22,7 @@ body {
     background-color: whitesmoke;
     justify-content: center;
     align-items: center;
+    max-height: 100vh;
 }
 
 .left .loginForm .input {
@@ -34,22 +30,13 @@ body {
 }
 
 .home .carousel-item {
-    min-height: 100vh;
+    height: 100vh;
     background-position: center;
     background-size: cover;
     z-index: 1;
 }
 
-.home .carousel-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: -1;
-}
+
 
 .home .carousel-item .container {
     position: absolute;
@@ -159,29 +146,3 @@ body {
     }
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="tel"],
-form input[type="password"] {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 8px;
-}
-
-label {
-    padding: 0 5px;
-}
-
-form input[type="submit"] {
-    width: 100%;
-    display: block;
-    border-radius: 15px;
-}
-
-form input[type="file"] {
-    margin: 0;
-    padding: 2rem 1.5rem;
-    font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-    color: #5a5a5a;
-}
