@@ -47,8 +47,8 @@ $countReport = countReport();
 
 <body>
     <div class="main-wrapper">
-        <!---navbar start-->
-        <div class="header-container fixed-top">
+         <!---navbar start-->
+         <div class="header-container fixed-top">
             <header class="header  navbar navbar-expand-sm expand-header">
                 <div class="header-left d-flex">
                     <div class="logo">
@@ -56,13 +56,13 @@ $countReport = countReport();
                     </div>
                     <a href="#" class="sidebarCollapse" data-placement="bottom" id="toogleSidebar">
                         <span class="fas fa-bars"></span>
-                    </a>
+                    </a>                
                 </div>
                 <ul class="navbar-item flex-row ml-auto">
 
-                    <li class="nav-item dropdown user-profile-dropdown">
-                        <a href="" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
-                            <img src="../Images/2.png" alt="" class="icon">
+                    <li class="nav-item btn-back">
+                        <a href="../home.php">
+                            Back to home
                         </a>
                     </li>
 
@@ -71,14 +71,12 @@ $countReport = countReport();
         </div>
         <!---navbar end--->
 
+
             <!--------sidebar start---------->
             <div class="left-menu">
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
-                    <ul id="sidebar">
-                        <li class="active">
-                            <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
-                        </li>
+                    <ul id="sidebar">                      
                         <li>
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
@@ -118,22 +116,19 @@ $countReport = countReport();
                                 <div class="show-table">
                                     <div class="data-table-section table-responsive">
                                         <table class="table table-striped table-hover" style="width:100%" id="reportTable">
-                                            <thead>
-                                                <th>Report Type</th>
-                                                <th>Reported ID</th>
-                                                <th>Reason</th>
-                                                <th>Details</th>
-                                                <th>Status</th>
+                                            <thead>                                               
+                                                <th>User Name</th>
+                                                <th>Mail</th>                                              
                                                 <th>Action</th>
                                             </thead>
                                             <tbody>
                                                 <?php
                                                 $db = new Database();
-                                                $query = "SELECT * from Reports where status = 'UNRESOLVED'";
+                                                $query = "SELECT * from User where rank = 'BANNED'";
                                                 $res = mysqli_query($db->connect(), $query);
                                                 if (mysqli_num_rows($res) > 0) {
                                                     while ($row = mysqli_fetch_array($res)) {
-                                                        include "../Model/report_list.php";
+                                                        include "../Model/ban_list.php";
                                                     }
                                                 }
                                                 ?>
@@ -177,66 +172,20 @@ $countReport = countReport();
         });
     </script>
     <script>
-        function Dismiss(reportID, reportedID, reportType, reportedBy) {          
-            document.getElementById('status' + reportID).parentElement.innerHTML = "";
-            document.getElementById('cntReport').innerText -= 1;            
+       function removeBan(userID, userMail)
+       {     
+            document.getElementById(userID).parentElement.innerHTML = "";
             $.ajax({
                 type: 'post',
-                url: '../Assets/api/action_report.php',
+                url: '../Assets/api/action_ban.php',
                 data: {
-                    task: "dismiss",
-                    reportID: reportID,
-                    reportedID: reportedID,
-                    reportedBy: reportedBy,
-                    reportType: reportType
-                   
-                },
-                success: function(data) {
-                    alert(data);
+                    task: "unban",
+                    userID: userID,
+                    userMail: userMail
                 }
             });
-        }
+       }
 
-        function Ban(reportID, reportedID, reportType, reportedBy) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, ban it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('status' + reportID).parentElement.innerHTML = "";
-                    document.getElementById('cntPending').innerText -= 1;
-                    $.ajax({
-                        type: 'post',
-                        url: '../Assets/api/action_report.php',
-                        data: {
-                            task: "ban",
-                            reportID: reportID,
-                            reportedID: reportedID,
-                            reportType: reportType,
-                            reportedBy: reportedBy
-                        }
-                    });
-                    if (reportType == "POST") {
-                        Swal.fire(
-                            'Banned!',
-                            'Approve request has been rejected.',
-                            'success'
-                        )
-                    } else {
-                        Swal.fire(
-                            'Deleted!',
-                            'This post has been deleted.',
-                            'success'
-                        )
-                    }
-                }
-            })
-        }
     </script>
 </body>
 

@@ -80,11 +80,8 @@ $countReport = countReport();
         <div class="left-menu">
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
-                    <ul id="sidebar">
+                    <ul id="sidebar">                       
                         <li class="active">
-                            <a href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
-                        </li>
-                        <li>
                             <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>

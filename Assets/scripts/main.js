@@ -1,7 +1,19 @@
 /*----------left sidebar---------------*/
-$(document).on('click', '#sidebar li', function() {
-    $(this).addClass('active').siblings().removeClass('active')
-});
+
+var lis = document.getElementById("navbar").getElementsByTagName("li");
+function process(){
+    alert('check');
+     for (let i = 0; i < lis.length; i++) {
+      lis[i].classList.remove('active');
+      
+    }
+    this.classList.add('active');
+   
+}
+
+for (let i = 0; i < lis.length; i++) {
+     lis[i].addEventListener("click", process);
+}
             
 /*----------left sidebar dropdown menu toggle---------------*/
 $('.sub-menu ul').hide();
@@ -18,9 +30,3 @@ $(document).ready(function() {
     });
 });
 
-/*-----------------data table------------------*/
-$(document).ready(function() {
-    var table = $('#tableNewUser').DataTable({
-        pageLength : 5
-    });
-} );

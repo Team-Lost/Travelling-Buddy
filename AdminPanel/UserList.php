@@ -55,13 +55,13 @@ $countReport = countReport();
                     </div>
                     <a href="#" class="sidebarCollapse" data-placement="bottom" id="toogleSidebar">
                         <span class="fas fa-bars"></span>
-                    </a>
+                    </a>                
                 </div>
                 <ul class="navbar-item flex-row ml-auto">
 
-                    <li class="nav-item dropdown user-profile-dropdown">
-                        <a href="" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
-                            <img src="../Images/2.png" alt="" class="icon">
+                    <li class="nav-item btn-back">
+                        <a href="../home.php">
+                            Back to home
                         </a>
                     </li>
 
@@ -74,10 +74,7 @@ $countReport = countReport();
           <div class="left-menu">
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
-                    <ul id="sidebar">
-                        <li class="active">
-                            <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
-                        </li>
+                    <ul id="sidebar">                        
                         <li>
                             <a href="#"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>

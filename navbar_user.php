@@ -24,7 +24,7 @@
             <?php
             if ($_SESSION['Rank'] == 'ADMIN' || $_SESSION['Rank'] == 'MODERATOR') {
                 echo "<li class='nav-item'>
-                    <a class='nav-link' href='AdminPanel/Admin.php'>Admin Panel</a>
+                    <a class='nav-link' href='AdminPanel/UserList.php'>Admin Panel</a>
                     </li>";
             }
             ?>

@@ -50,7 +50,7 @@ if (isset($_POST['task'])) {
                         Sincerely,<br>
                         Travelling Buddy team
                         </p><br><br>";
-     
+            sendMail($receipient, $subject, $message);//send mail to the user who reported the id
     }
     if ($_POST['task'] == "ban")
     {
@@ -62,19 +62,62 @@ if (isset($_POST['task'])) {
         {
             $query = "Delete from POSTS where postID = $reportedID";
             $db->updateTable($query);
-            $response = 1;   
+            $response = 1;
+            //thank the user who reported the post
+            $receipient = getMail($reportedBy);//reported by user's mail
+            $name = getName($_POST['reportedID']);//reported user's name
+            $subject = "Regarding the Post you have reported";
+            $message = "We have reviewed your report about $name's post and have decided it goes against our standards and hence deleted the post.<br>
+                        Thank you for reporting  and helping us make a better platform for everyone. 
+                        <br><br>
+                        Sincerely,<br>
+                        Travelling Buddy team
+                        </p><br><br>"; 
+            sendMail($receipient, $subject, $message);//send mail to the user who reported the id
+            
+            //notify the user whose post has been deleted
+            $receipient = getMail($reportedID);//reported user's mail
+            $subject = "Regarding your post being deleted";
+            $message = "The post you have made goes against our standards and hence we deleted the post.<br>
+                        Please be careful next time. 
+                        <br><br>
+                        Sincerely,<br>
+                        Travelling Buddy team
+                        </p><br><br>"; 
+            sendMail($receipient, $subject, $message);//send mail to the user who reported the id
         }
         else
         {
             $query = "UPDATE USER SET rank = 'BANNED' WHERE UserID = $reportedID";
             $db->updateTable($query);
             $response = 1;
+             //thank the user who reported the post
+            $receipient = getMail($reportedBy);//reported by user's mail
+            $name = getName($_POST['reportedID']);//reported user's name
+            $subject = "Regarding the Post you have reported";
+            $message = "We have reviewed your report about $name's profile and have decided it goes against our standards and hence deleted the post.<br>
+                         Thank you for reporting  and helping us make a better platform for everyone. 
+                         <br><br>
+                         Sincerely,<br>
+                         Travelling Buddy team
+                         </p><br><br>"; 
+            sendMail($receipient, $subject, $message);//send mail to the user who reported the id
+
+             //notify the user whose post has been deleted
+             $receipient = getMail($reportedID);//reported user's mail
+             $subject = "Regarding your profile being banned";
+             $message = "We have noticed activities from your profile that goes against our standards and hence you have been banned.<br>
+                         You can't log int your account unless our team removes the ban.If you have any query,you can contact us.  
+                         <br><br>
+                         Sincerely,<br>
+                         Travelling Buddy team
+                         </p><br><br>"; 
+             sendMail($receipient, $subject, $message);//send mail to the user who reported the id
+             
         }
        //And of function need to call resolve
           
     }     
-    if (sendMail($receipient, $subject, $message)) {
-        
-    }
+  
     echo json_encode($response);
 }

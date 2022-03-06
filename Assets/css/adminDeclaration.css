@@ -9,7 +9,7 @@
 :root{
     --header-height: 3rem;
     /*-------Colors-------*/
-    --main-color: #6128e7;
+    --main-color: #4b86b4;
     --second-color: rgb(7,3,45);
     --main-gradient: linear-gradient(121deg, rgba(21, 76, 121, 1) 25% , rgb(3 146 215/42%)100% );
     --dark-bg: #383848;
