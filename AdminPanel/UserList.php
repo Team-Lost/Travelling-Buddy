@@ -79,7 +79,7 @@ $countReport = countReport();
                             <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="UserList.php"><i class="fa-solid fa-users"></i>All Users</a>
+                            <a href="#"><i class="fa-solid fa-users"></i>All Users</a>
                         </li>
                         <li>
                             <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
@@ -91,7 +91,7 @@ $countReport = countReport();
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-envelope-open"></i>Contact</a>
+                            <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
                         </li>
                         <li>
                             <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
