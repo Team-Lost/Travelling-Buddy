@@ -1,4 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0rem; align-self: start; z-index: 1;">
+    <div>
+        <ul class="navbar-nav mx-3">
+            <li class="nav-item active">
+                Hello, <?php echo $_SESSION['UserName'] ?>!
+            </li>
+        </ul>
+    </div>
     <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item active">
@@ -15,11 +22,8 @@
                     Notifications <span id="notificationCount"></span>
                 </a>
                 <ul id="panelNotification" class="shadow my-4 dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="width: 25rem; left: 50%;transform: translateX(-50%);">
-                    
+
                 </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Messages</a>
             </li>
             <?php
             if ($_SESSION['Rank'] == 'ADMIN' || $_SESSION['Rank'] == 'MODERATOR') {
