@@ -39,7 +39,7 @@ if (!isset($_SESSION['UserID'])) {
     <div class="container-fluid">
         <div class="row">
             <div class="col-3 sticky-pane">
-                <div class="container-fluid mt-p-10-5 container-fitter">
+                <div class="container-fluid mt-p-10-5 container-fitter shadow">
                     <form action="#" method="post" id="search_form">
                         <div class="form-group" id="input_fields">
                             <label for="keyword">Keyword:</label>
@@ -77,10 +77,10 @@ if (!isset($_SESSION['UserID'])) {
 
                 ?>
             </div>
-            <div class="col-3" id="join-column">
+            <div class="col-3">
+                <div class="container-fitter container-fluid shadow" id="join-column">
 
-                <!--INCLUDE TEMPLATE HERE -->
-
+                </div>
             </div>
         </div>
     </div>
@@ -173,7 +173,17 @@ if (!isset($_SESSION['UserID'])) {
                         loadRequests();
                     }
                 }
-            })
+            });
+            $.ajax({
+                type: 'POST',
+                url: "Assets/api/manage_notification.php",
+                data: {
+                    task: 'MAKE',
+                    postID: postID,
+                    userID: userID,
+                    about: 'ACCEPT'
+                }
+            });
         }
 
         function rejectUser(userID, postID) {
@@ -190,7 +200,17 @@ if (!isset($_SESSION['UserID'])) {
                         loadRequests();
                     }
                 }
-            })
+            });
+            $.ajax({
+                type: 'POST',
+                url: "Assets/api/manage_notification.php",
+                data: {
+                    task: 'MAKE',
+                    postID: postID,
+                    userID: userID,
+                    about: 'REJECT'
+                }
+            });
         }
     </script>
 

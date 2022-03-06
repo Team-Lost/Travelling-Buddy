@@ -70,6 +70,22 @@ function votePost(taskName, postID) {
             vote: vote
         }
     });
+    var operation = "";
+    if (vote == 1) {
+        operation = "UPVOTE";
+    }
+    if (vote == -1) {
+        operation = "DOWNVOTE";
+    }
+    $.ajax({
+        type: 'POST',
+        url: "Assets/api/manage_notification.php",
+        data: {
+            task: 'MAKE',
+            postID: postID,
+            about: operation
+        }
+    });
 }
 
 function editPost(postID) {
@@ -97,4 +113,15 @@ function joinPost(postID, status) {
     });
     document.getElementById("join-" + postID).getElementsByTagName("span")[0].innerText = newStatus;
     document.getElementById("join-" + postID).setAttribute('onclick', "joinPost(" + postID + ",'" + newStatus + "')");
+    if (todo == 'INSERT') {
+        $.ajax({
+            type: 'POST',
+            url: "Assets/api/manage_notification.php",
+            data: {
+                task: 'MAKE',
+                postID: postID,
+                about: 'JOIN'
+            }
+        });
+    }
 }

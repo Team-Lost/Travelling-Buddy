@@ -36,7 +36,7 @@ if (mysqli_num_rows($res) > 0) {
 }
 
 ?>
-<div class="container-fluid mt-p-10-5 container-fitter">
+<div class="container-fluid mt-p-10-5 container-fitter shadow">
     <div class="row justify-content-center">
         <div class="col-1">
             <img src="<?php echo getPath($userPost['UserID']) ?>" class="img-fluid thumbnail rounded-circle img-fixed">

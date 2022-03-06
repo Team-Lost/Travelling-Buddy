@@ -1,4 +1,4 @@
-<div class="d-flex mt-p-10-5 flex-row justify-content-start">
+<div class="d-flex p-0 flex-row justify-content-start">
     <div class="p-2 bd-highlight"><img src="profile_picture.png" style="max-height: 4rem; max-width: 4rem" class="img-fluid thumbnail rounded-circle"></div>
     <div class="d-flex flex-column">
         <div class="p-2 bd-highlight">

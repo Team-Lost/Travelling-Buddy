@@ -10,6 +10,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="user_profile.php?id=<?php echo $_SESSION['UserID'] ?>">My Profile</a>
             </li>
+            <li id="ddNotification" class="nav-item dropdown my-2">
+                <a class="text-body text-decoration-none dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Notifications <span id="notificationCount"></span>
+                </a>
+                <ul id="panelNotification" class="shadow my-4 dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="width: 25rem; left: 50%;transform: translateX(-50%);">
+                    
+                </ul>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Messages</a>
             </li>
@@ -30,3 +38,34 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    function checkNotification() {
+        $.ajax({
+            type: 'POST',
+            url: "Assets/api/manage_notification.php",
+            data: {
+                task: "COUNT"
+            },
+            success: function(data) {
+                document.getElementById("notificationCount").innerText = "(" + data + ")";
+            }
+        });
+    }
+
+    setInterval(checkNotification, 5000);
+
+    $('#ddNotification').on('show.bs.dropdown', function() {
+        $.ajax({
+            type: 'POST',
+            url: "Assets/api/manage_notification.php",
+            data: {
+                task: "GET",
+                limit: "ALL"
+            },
+            success: function(data) {
+                document.getElementById("panelNotification").innerHTML = data;
+            }
+        });
+    })
+</script>
