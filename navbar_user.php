@@ -22,7 +22,7 @@
                 <a class="nav-link" href="#">Messages</a>
             </li>
             <?php
-            if ($_SESSION['Rank'] == 'ADMIN') {
+            if ($_SESSION['Rank'] == 'ADMIN' || $_SESSION['Rank'] == 'MODERATOR') {
                 echo "<li class='nav-item'>
                     <a class='nav-link' href='AdminPanel/Admin.php'>Admin Panel</a>
                     </li>";

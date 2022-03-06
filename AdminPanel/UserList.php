@@ -70,11 +70,11 @@ $countReport = countReport();
         </div>
         <!---navbar end--->
 
-        <!--------sidebar start---------->
-        <div class="left-menu">
+          <!--------sidebar start---------->
+          <div class="left-menu">
             <div class="menubar-content">
                 <nav class="animated bounceInDown">
-                <ul id="sidebar">
+                    <ul id="sidebar">
                         <li class="active">
                             <a href="Admin.php"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
                         </li>
@@ -85,21 +85,24 @@ $countReport = countReport();
                             <a href="Pending.php"><i class="fa-solid fa-user-check"></i>Pending Users<span class="mx-2" id="cntPending"><?php echo $countPending ?></span></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
-                        </li>                       
-                        <li>
-                            <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
+                            <a href="BannedUser.php"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
                         </li>
+                        <li>
+                            <a href="ModeratorList.php"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
+                        </li>                      
                         <li>
                             <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
                         </li>
                         <li>
                             <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
-                        </li>
-                   
+                        <?php
+                        if ($_SESSION['Rank'] == 'ADMIN') {
+                            echo "<li>
+                            <a href='MakeModerator.php'><i class='fa-brands fa-expeditedssl'></i>Make Moderator</a>
+                            </li>";
+                        }
+                        ?>
                     </ul>
                 </nav>
             </div>
