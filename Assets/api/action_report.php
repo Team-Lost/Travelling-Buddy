@@ -59,10 +59,17 @@ if (isset($_POST['task'])) {
         if($_POST['reportedType'] == "POST")
         {
             $query = "Delete from POSTS where postID = $reportedID";
+            $db->updateTable($query);
+            $response = 1;   
         }
-        $query = "Update Reports Set Status = 'RESOLVED' where reportID = $reportID";
-        $db->updateTable($query);
-              
+        else
+        {
+            //if user,get the user id and destroy his session
+            $_SESSION['$reportID'].session_destroy();
+
+        }
+       //And of function need to call resolve
+          
     }     
     if (sendMail($receipient, $subject, $message)) {
         
