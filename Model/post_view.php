@@ -9,6 +9,13 @@ if (mysqli_num_rows($res) > 0) {
     }
 }
 
+$disabled = "";
+if ($currID == $userPost['posterID']) {
+    $disabled = "disabled";
+} else {
+    $disabled = "";
+}
+
 if ($voteStatus == -1) {
     $upvoteIconClass = "fa-regular fa-thumbs-up fa-xl";
     $downvoteIconClass = "fa-solid fa-thumbs-down fa-xl";
@@ -38,14 +45,24 @@ if (mysqli_num_rows($res) > 0) {
 ?>
 <div class="container-fluid mt-p-10-5 container-fitter shadow">
     <div class="row justify-content-center">
-        <div class="col-1">
-            <img src="<?php echo getPath($userPost['UserID']) ?>" class="img-fluid thumbnail rounded-circle img-fixed">
+        <div class="col-12">
+            <div class="d-flex p-0 flex-row justify-content-start">
+                <div class="p-2 bd-highlight"><img src="<?php echo getPath($userPost['UserID']) ?>" style="max-height: 3rem; max-width: 3rem" class="img-fluid thumbnail rounded-circle"></div>
+                <div class="p-2 bd-highlight">
+                    <div class="d-flex flex-column">
+                        <div class="bd-highlight">
+                            <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>">
+                                <p class="text-center-v"><?php echo $userPost['UserName'] ?></p>
+                            </a>
+                        </div>
+                        <div class="bd-highlight">
+                            Plan ID: <?php echo $userPost['postID'] ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-11 text-center-v">
-            <a href="user_profile.php?id=<?php echo $userPost['UserID'] ?>">
-                <p class="text-center-v"><?php echo $userPost['UserName'] ?></p>
-            </a>
-        </div>
+
     </div>
     <div class="row justify-content-center my-2">
         <div class="col-12 gap-gray"></div>
@@ -87,7 +104,7 @@ if (mysqli_num_rows($res) > 0) {
         </div>
         <div class="col-6">
             <div class="btn-group" role="group">
-                <button id="join-<?php echo $userPost['postID'] ?>" onclick="joinPost(<?php echo $userPost['postID'] . ',\'' . $joinText . '\'' ?>)" class="btn btn-info btn-h40">
+                <button id="join-<?php echo $userPost['postID'] ?>" onclick="joinPost(<?php echo $userPost['postID'] . ',\'' . $joinText . '\'' ?>)" class="btn btn-info btn-h40" <?php echo $disabled ?>>
                     <i class="fa-regular fa-square-check fa-xl"></i>
                     <span class="mx-1"><?php echo $joinText ?></span></button>
                 <button type="button" class="btn btn-info btn-h40" onclick="javascript:loadPost(<?php echo $userPost['postID'] ?>)">

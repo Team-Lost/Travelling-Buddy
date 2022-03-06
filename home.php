@@ -65,7 +65,7 @@ include "ban_check.php";
                 <?php
                 $currID = $_SESSION['UserID'];
                 $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
-                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.posterID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
                     " FROM user" .
                     " RIGHT JOIN posts ON user.UserID = posts.posterID" .
                     " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID";

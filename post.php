@@ -44,12 +44,13 @@ include "ban_check.php";
     ?>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-5">
+            <div class="col-3"></div>
+            <div class="col-6">
                 <?php
                 $postID = $_GET['postID'];
                 $currID = $_SESSION['UserID'];
                 $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
-                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+                $query = "SELECT user.UserID, user.UserName, posts.posterID, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
                     " FROM user" .
                     " RIGHT JOIN posts ON user.UserID = posts.posterID" .
                     " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID" .
@@ -87,12 +88,45 @@ include "ban_check.php";
                     ?>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="container-fitter mt-p-10-5 container-fluid shadow">
+                    <p class="text-center fw-bold">Joined Travellers<br>
+                        <span class="text-danger" id="span-no-perm" style="display: none;">You don't have permission to Traveller list</span>
+                    </p>
+                </div>
+                <div class="container-fitter mt-p-10-5 container-fluid shadow" id="joined-members">
+
+                </div>
+            </div>
         </div>
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
         </script>
         <script src="Assets/scripts/post_function.js"></script>
+        <script>
+            $(document).ready(function() {
+                loadMembers();
+            });
+
+            function loadMembers() {
+                let params = new URLSearchParams(location.search);
+                $.ajax({
+                    type: 'post',
+                    url: "Assets/api/get_join_member.php",
+                    data: {
+                        postID: params.get('postID')
+                    },
+                    success: function(data) {
+                        if (data == 'INVALID') {
+                            document.getElementById("span-no-perm").setAttribute("style", "display: block;");
+                        } else {
+                            document.getElementById("joined-members").innerHTML = data;
+                        }
+                    }
+                });
+            }
+        </script>
 
 </body>
 

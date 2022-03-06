@@ -55,7 +55,7 @@ if (!isset($_SESSION['UserID'])) {
     ?>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-5">
+            <div class="col-6">
                 <div class="container container-fitter mt-p-10-5">
                     <div class="row justify-content-md-center my-4">
                         <div class="col-4 px-3 btn-parent">
@@ -96,7 +96,7 @@ if (!isset($_SESSION['UserID'])) {
                 </div>
                 <?php
                 $currID = $linkID;
-                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+                $query = "SELECT user.UserID, user.UserName, posts.postID, posts.posterID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
                     " FROM user" .
                     " RIGHT JOIN posts ON user.UserID = posts.posterID" .
                     " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID" .
