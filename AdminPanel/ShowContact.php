@@ -87,7 +87,7 @@ $countReport = countReport();
                         </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Banned Users</a>
-                        </li>                       
+                        </li>
                         <li>
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
                         </li>
@@ -100,7 +100,7 @@ $countReport = countReport();
                         <li>
                             <a href="#"><i class="fa-solid fa-user-gear"></i>Make Moderator</a>
                         </li>
-                   
+
                     </ul>
                 </nav>
             </div>
@@ -167,18 +167,9 @@ $countReport = countReport();
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#contactTable').DataTable({
-                // responsive: true
-            });
-            //new $.fn.dataTable.FixedHeader(table);
-        });
-    </script> 
-    <script>
-        function sendMail(contactMail,contactID) {          
-            document.getElementById('contactID').parentElement.innerHTML = "";
-           /* document.getElementById('cntContact').innerText -= 1;*/   
-            alert(contactID);
+
+        function sendMail(contactMail, contactID) {
+            $("[data-bs-dismiss=modal]").trigger({ type: "click" });
             $.ajax({
                 type: 'post',
                 url: '../Assets/api/reply_contact.php',
@@ -187,13 +178,11 @@ $countReport = countReport();
                     contactMail: contactMail,
                     contactID: contactID,
                     contactReply: document.getElementById('reply' + contactID).value
-                },
-                success: function(data) {
-                    alert(data);
                 }
             });
+            document.getElementById('status' + contactID).innerText = "REPLIED";
         }
-    </script>   
+    </script>
 </body>
 
 </html>

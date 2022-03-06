@@ -7,13 +7,13 @@ if (isset($_POST['task'])) {
     if ($_POST['task'] == "reply") {
         $contactID = $_POST['contactID'];
         $receipient = $_POST['contactMail'];
-        $query = "Update Contact Set Status = 'REPLIED' where contactID = $contactID";
+        $query = "Update Contact Set contactStatus = 'REPLIED' where contactID = $contactID";
         $db->updateTable($query);
         $response['query'] = $query;
         $response['$receipient'] = $receipient;
         $message = $_POST['contactReply'];
         $response['$message'] = $message;
-        sendMail($receipient, $subject, $message);
+        sendMail($receipient, 'Regarding about your contact with us!', $message);
         echo json_encode($response);
     }
 }
