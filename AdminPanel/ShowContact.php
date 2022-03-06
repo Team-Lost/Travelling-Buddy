@@ -92,7 +92,7 @@ $countReport = countReport();
                             <a href="#"><i class="fa-brands fa-expeditedssl"></i>Moderator List</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-envelope-open"></i>Contact</a>
+                            <a href="ShowContact.php"><i class="fa-solid fa-envelope-open"></i>Contact</a>
                         </li>
                         <li>
                             <a href="Reports.php"><i class="fa-regular fa-note-sticky"></i>Reports<span class="mx-2" id="cntReport"><?php echo $countReport ?></span></a>
@@ -178,7 +178,7 @@ $countReport = countReport();
         function sendMail(contactMail,contactID) {          
             document.getElementById('contactID').parentElement.innerHTML = "";
            /* document.getElementById('cntContact').innerText -= 1;*/   
-
+            alert(contactID);
             $.ajax({
                 type: 'post',
                 url: '../Assets/api/reply_contact.php',
