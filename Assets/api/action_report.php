@@ -1,7 +1,7 @@
 <?php
 include "../../Model/Database.php";
 require '../../PHPMailer-master/mail.php';
-$response = 0;
+$response;
 function getMail($id)
 {
     $db = new database();
@@ -29,25 +29,27 @@ if (isset($_POST['task'])) {
     //if no actions are required,just inform the reported id that no problems were found
     if ($_POST['task'] == "dismiss") {       
             $reportID = $_POST['reportID'];
-            $reportedBy = $_POST[ 'reportedBy'];           
+            $reportedBy = $_POST['reportedBy'];           
             $query = "Update Reports Set Status = 'RESOLVED' where reportID = $reportID";
             $db->updateTable($query);
-            $response = 1;
+            $response['query'] = $query;
             //get the mail of the person who reported the id
-            $receipient = getMail($reportedBy);                  
+            $receipient = getMail($reportedBy);
+            $response['$receipient'] = $receipient;                
             //get the name of the person whose id was reported
-            $name = getName($reportedID);          
+            $name = getName($_POST['reportedID']);
+            $response['name'] = $name;          
             if ($_POST['reportType'] == "POST") {
                 $subject = "Regarding the Post you have reported";
             } else {
                 $subject = "Regarding the Profile you have reported";
             }
-            $message = 'We have reviewed your report about {$name}\'s\ post and have decided it doesn\'t\ go against our standards.<br>
+            $message = "We have reviewed your report about $name's post and have decided it doesn't go against our standards.<br>
                         Thank you for reporting  and helping us make a better platform for everyone. 
                         <br><br>
                         Sincerely,<br>
                         Travelling Buddy team
-                        </p><br><br>';
+                        </p><br><br>";
      
     }
     if ($_POST['task'] == "ban")
@@ -74,4 +76,5 @@ if (isset($_POST['task'])) {
     if (sendMail($receipient, $subject, $message)) {
         
     }
+    echo json_encode($response);
 }

@@ -22,6 +22,6 @@
         <!----ReportID----ReportedID------ReportedType---------ReportedBy-->       
         <a href="<?php echo "javascript:Ban($row[reportID], $row[reportedID], '$row[reportType]', $row[reportedBy])";?>">Ban</a>
         <!--ReportID------ReportedType---------ReportedBy-->
-        <a href="<?php echo "javascript:Dismiss($row[reportID], '$row[reportType]', $row[reportedBy])";?>">Dismiss</a>
+        <a href="<?php echo "javascript:Dismiss($row[reportID], $row[reportedID], '$row[reportType]', $row[reportedBy])";?>">Dismiss</a>
     </td>
 </tr>

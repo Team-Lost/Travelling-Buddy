@@ -186,7 +186,7 @@ $countReport = countReport();
         });
     </script>
     <script>
-        function Dismiss(reportID, reportType, reportedBy) {          
+        function Dismiss(reportID, reportedID, reportType, reportedBy) {          
             document.getElementById('status' + reportID).parentElement.innerHTML = "";
             document.getElementById('cntReport').innerText -= 1;            
             $.ajax({
@@ -195,9 +195,13 @@ $countReport = countReport();
                 data: {
                     task: "dismiss",
                     reportID: reportID,
+                    reportedID: reportedID,
                     reportedBy: reportedBy,
                     reportType: reportType
                    
+                },
+                success: function(data) {
+                    alert(data);
                 }
             });
         }
