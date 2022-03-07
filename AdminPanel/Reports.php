@@ -205,7 +205,6 @@ $countReport = countReport();
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('status' + reportID).parentElement.innerHTML = "";
-                    document.getElementById('cntPending').innerText -= 1;
                     $.ajax({
                         type: 'post',
                         url: '../Assets/api/action_report.php',
@@ -215,6 +214,9 @@ $countReport = countReport();
                             reportedID: reportedID,
                             reportType: reportType,
                             reportedBy: reportedBy
+                        },
+                        success (data) {
+                            alert(data);
                         }
                     });
                     if (reportType == "POST") {

@@ -65,7 +65,7 @@ if (isset($_POST['task'])) {
         $reportedID = $_POST['reportedID'];
         $reportedBy = $_POST[ 'reportedBy'];
         //if post
-        if($_POST['reportedType'] == "POST")
+        if($_POST['reportType'] == "POST")
         {
             $query = "Delete from POSTS where postID = $reportedID";
             $db->updateTable($query);
