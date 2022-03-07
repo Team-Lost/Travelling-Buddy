@@ -188,10 +188,8 @@ $countReport = countReport();
                     reportedBy: reportedBy,
                     reportType: reportType
                    
-                },
-                success: function(data) {
-                    alert(data);
                 }
+               
             });
         }
 
@@ -221,14 +219,14 @@ $countReport = countReport();
                     });
                     if (reportType == "POST") {
                         Swal.fire(
-                            'Banned!',
-                            'Approve request has been rejected.',
+                            'Deleted!',
+                            'This post has been deleted',
                             'success'
                         )
                     } else {
                         Swal.fire(
-                            'Deleted!',
-                            'This post has been deleted.',
+                            'Banned!',
+                            'This id has been banned.',
                             'success'
                         )
                     }

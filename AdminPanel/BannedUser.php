@@ -174,7 +174,8 @@ $countReport = countReport();
     <script>
        function removeBan(userID, userMail)
        {     
-            document.getElementById(userID).parentElement.innerHTML = "";
+           
+           
             $.ajax({
                 type: 'post',
                 url: '../Assets/api/action_ban.php',
@@ -184,6 +185,7 @@ $countReport = countReport();
                     userMail: userMail
                 }
             });
+            document.getElementById('banRow'+ userID).innerHTML = "";
        }
 
     </script>

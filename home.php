@@ -44,7 +44,7 @@ include "ban_check.php";
                 <div class="container-fluid mt-p-10-5 container-fitter shadow">
                     <form action="#" method="post" id="search_form">
                         <div class="form-group" id="input_fields">
-                            <label for="keyword">Keyword:</label>
+                            <label for="keyword">Details Keyword:</label>
                             <input type="text" id="keyword" name="" class="form-control bottom-input">
                             <label for="minBudget">Minimum Budget:</label>
                             <input type="number" id="minBudget" name="" class="form-control bottom-input">

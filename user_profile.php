@@ -83,11 +83,11 @@ if (!isset($_SESSION['UserID'])) {
                                     <td><span style="font-weight: 500;" class="mx-2"><?php echo $user['Phone'] ?></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="image-center"><i class="fas fa-flag"></i></td>
+                                    <td class="image-center"><i class="fa-solid fa-user"></i></td>
                                     <td><span style="font-weight: 500;" class="mx-2"><?php echo $user['Gender'] ?></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="image-center"><i class="fab fa-github"></i></td>
+                                    <td class="image-center"><i class="fa-solid fa-calendar-days"></i></i></td>
                                     <td><span style="font-weight: 500;" class="mx-2"><?php echo $user['creationDate'] ?></span></td>
                                 </tr>
                             </table>
