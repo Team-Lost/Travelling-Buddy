@@ -78,6 +78,9 @@ include "ban_check.php";
         header("Location:home.php");
     }
     ?>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+
     <script>
         var inputBox = "<input type='text' id='location' name='location[]' class='form-control margin-t5'>";
         var btnAddLoc = document.getElementById("addLocation");

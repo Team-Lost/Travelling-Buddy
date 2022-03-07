@@ -52,7 +52,11 @@
                 task: "COUNT"
             },
             success: function(data) {
-                document.getElementById("notificationCount").innerText = "(" + data + ")";
+                if (data == 0) {
+                    document.getElementById("notificationCount").innerText = "";
+                } else {
+                    document.getElementById("notificationCount").innerText = "(" + data + ")";
+                }
             }
         });
     }

@@ -91,7 +91,7 @@ include "ban_check.php";
             <div class="col-3">
                 <div class="container-fitter mt-p-10-5 container-fluid shadow">
                     <p class="text-center fw-bold">Joined Travellers<br>
-                        <span class="text-danger" id="span-no-perm" style="display: none;">You don't have permission to Traveller list</span>
+                        <span class="text-danger" id="span-no-perm" style="display: none;">You don't have permission to see Traveller list</span>
                     </p>
                 </div>
                 <div class="container-fitter mt-p-10-5 container-fluid shadow" id="joined-members">
