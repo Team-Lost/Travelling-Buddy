@@ -62,8 +62,7 @@ if (!isset($_SESSION['UserID'])) {
                             <img src="<?php echo getPath($linkID) ?>" class="img-fluid thumbnail rounded-circle" style="width:auto, height:auto">
                             <?php
                             if ($linkID == $_SESSION['UserID']) {
-                                echo '<button type="button" class="btn btn-secondary btn-img" onclick="document.getElementById("file").click()">Change Photo</button>';
-                                echo '<input type="file" name="file" id="file" accept="image/png,image/jpeg,image/jpg" onchange="uploadImage()" style="display:none">';
+                                include "photo_button.php";
                             }
                             ?>
                         </div>

@@ -6,7 +6,7 @@ if (!isset($_SESSION['UserID'])) {
 $currID = $_SESSION['UserID'];
 $extraQuery = $_POST['extraQuery'];
 $conn = mysqli_connect("localhost", "root", "", "TravellingBuddy");
-$query = "SELECT user.UserID, user.UserName, posts.postID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
+$query = "SELECT user.UserID, user.UserName, posts.postID, posts.posterID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
     " FROM user" .
     " RIGHT JOIN posts ON user.UserID = posts.posterID" .
     " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID" .
@@ -16,6 +16,18 @@ if (mysqli_num_rows($result) > 0) {
     while ($userPost = mysqli_fetch_assoc($result)) {
         include "../../Model/post_view.php";
     }
+}
+
+function getPath($UserID)
+{
+    $path = "profile_picture.png";
+    if (file_exists("../../ProfilePictures/$UserID/")) {
+        $files = scandir("../../ProfilePictures/$UserID/", 1);
+        if (sizeof($files) > 2) {
+            $path = "ProfilePictures/$UserID/$files[0]";
+        }
+    }
+    return $path;
 }
 
 ?>

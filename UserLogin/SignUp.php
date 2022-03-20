@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     //---check phone---//
-    if (!preg_match('/^\+?.[0-9]+$/', $_POST['phoneNumber'])) {
+    if (!preg_match("/^\+?.[0-9]+$/", $_POST['phoneNumber'])) {
         $phnError = "Phone can only contain digits and optionally + in the first position";
         $error = true;
     }
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     </div>
                     <div class="input-container">
                         <label for="phoneNumber" class="">Phone Number:</label>
-                        <input class="form-control shadow-sm " type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number (Only plus and digits are allowed)" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
+                        <input class="form-control shadow-sm " type="tel" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" value="<?php echo $phoneNumber; ?>" minlength=4 maxlength=15 required pattern="^\+?.[0-9]+$">
                         <span class="text-danger error"> <?php echo $phnError; ?></span>
                     </div>
                     <div class="input-container">

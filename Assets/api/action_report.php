@@ -70,7 +70,8 @@ if (isset($_POST['task'])) {
             $query = "Delete from POSTS where postID = $reportedID";
             $db->updateTable($query);
             $response = 1;
-            $query = "Delete from Notifications where postID = $reportedID";
+            $query = "Delete from notifications where postID = $reportedID";
+            $db->updateTable($query);
             //thank the user who reported the post
             $receipient = getMail($reportedBy);//reported by user's mail
             $name = getName($_POST['reportedID']);//reported user's name

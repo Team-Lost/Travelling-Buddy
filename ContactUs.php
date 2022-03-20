@@ -28,18 +28,7 @@ if (isset($_POST['submit'])) {
         $query = "INSERT INTO CONTACT(contactName, contactMail, contactSubject, contactMessage) VALUES ('$name', '$mail', '$subject','$message')";
         //echo $query;
         //echo "data inserted succesfully";
-        $db->updateTable($query);
-        $to = 'travellingbuddy2908@gmail.com'; 
-        ?>
-         <script>
-            Swal.fire({               
-                icon: 'success',
-                title: 'Thanks for contacting us.Our admin will see the matter',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            </script>
-        <?php  
+        $db->updateTable($query);      
         /*         
         if(contact($to,  $mail,  $subject, $message))
         {
@@ -59,7 +48,7 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="Assets/css/contactUs.css">
-    <title>Document</title>
+    <title>Contact us</title>
 </head>
 
 <body>
@@ -70,21 +59,22 @@ if (isset($_POST['submit'])) {
 
                 <div class="form-wrapper">
                     <label for="name">Full Name</label>
-                    <input type="text" class="form-control" name="name" required minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$">
+                    <input type="text" class="form-control" name="name" required minlength=3 maxlength=100 required pattern="^[a-zA-Z ]+$" placeholder="your name" title = "letters and space only">
                 </div>
 
                 <div class="form-wrapper">
                     <label for="mail">Email</label>
-                    <input type="email" class="form-control" name="mail" required>
+                    <input type="email" class="form-control" name="mail" required placeholder="yourmail @" title = "Please enter a valid mail">
                 </div>
                 <div class="form-wrapper">
                     <label for="subject">Subject</label>
-                    <input type="text" class="form-control" name="subject" required>
+                    <input type="text" class="form-control" name="subject" required placeholder="your subject" title = "You need to fill out the field" >
                 </div>
                 <div class="form-wrapper">
                     <label for="">Your Message Here</label>
-                    <textarea name="message" class="form-control" id="" cols="30" rows="10" required></textarea>
+                    <textarea name="message" class="form-control" id="" cols="30" rows="10" required placeholder="your message" title = "You need to fill out the field"></textarea>
                 </div>
+                <p><?php echo $showError?></p>
                 <input type="submit" value="Submit" name="submit">
 
             </form>

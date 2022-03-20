@@ -115,7 +115,7 @@ $countReport = countReport();
                             <div class="col-md-12 col-sm-12">
                                 <div class="show-table">
                                     <div class="data-table-section table-responsive">
-                                        <table class="table table-striped table-bordered" id="userList">
+                                        <table class="table table-striped" id="userList">
                                             <thead>
                                                 <th>UserName</th>
                                                 <th>Phone</th>

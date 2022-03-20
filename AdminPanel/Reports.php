@@ -214,9 +214,6 @@ $countReport = countReport();
                             reportedID: reportedID,
                             reportType: reportType,
                             reportedBy: reportedBy
-                        },
-                        success (data) {
-                            alert(data);
                         }
                     });
                     if (reportType == "POST") {

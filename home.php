@@ -19,6 +19,7 @@ include "ban_check.php";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="Assets/css/home.css" rel="stylesheet">
+    <title>Home</title>
 </head>
 
 <body class="body-ssp-fb">
@@ -68,7 +69,7 @@ include "ban_check.php";
                 $query = "SELECT user.UserID, user.UserName, posts.postID, posts.posterID, posts.location, posts.budget, posts.description, posts.startingTime, posts.endingTime, tempVotes.voteCount" .
                     " FROM user" .
                     " RIGHT JOIN posts ON user.UserID = posts.posterID" .
-                    " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID";
+                    " LEFT JOIN (SELECT SUM(voteStatus) as voteCount, postID FROM votes GROUP BY(postID)) AS tempVotes ON posts.postID = tempVotes.postID ORDER BY posts.postID DESC";
 
                 $result = mysqli_query($conn, $query);
                 if (mysqli_num_rows($result) > 0) {
@@ -154,6 +155,7 @@ include "ban_check.php";
                     extraQuery: extraQuery
                 },
                 success: function(data) {
+                    
                     document.getElementById("post-column").innerHTML = data;
                 }
             });

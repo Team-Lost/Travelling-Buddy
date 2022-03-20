@@ -1,0 +1,2 @@
+<button type="button" class="btn btn-secondary btn-img" onclick="document.getElementById('file').click()" >Change Photo</button>
+<input type="file" name="file" id="file" accept="image/png,image/jpeg,image/jpg" onchange="uploadImage()" style="display:none" >
